@@ -1,0 +1,6 @@
+<svg width="800" height="400" xmlns="http://www.w3.org/2000/svg">
+  <rect width="100%" height="100%" fill="#1a365d"/>
+  <circle cx="400" cy="200" r="80" fill="none" stroke="#63b3ed" stroke-width="8"/>
+  <path d="M400 120 L400 280 M320 200 L480 200" stroke="#63b3ed" stroke-width="8"/>
+  <text x="400" y="350" font-family="Arial" font-size="24" fill="#ffffff" text-anchor="middle">Kubernetes Architecture</text>
+</svg>
