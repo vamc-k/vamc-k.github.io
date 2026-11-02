@@ -1,0 +1,620 @@
+<!doctype html>
+<html lang="te">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Mounika &amp; Vamsi Krishna</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Ramaraja&family=Pinyon+Script&family=Hind+Guntur:wght@300;400;500;600&display=swap">
+<style>
+/* Layout: a portrait invitation column (like a story card) centred on a warm backdrop. Hero is a painted scene: marigold garlands fall from the top, banana and coconut trees sway, the couple walks in. Below it, each day is a mango-leaf toran followed by ornate event cards. Committed light, festive look on purpose. */
+:root{
+  --ivory:#fff4cf;
+  --peach:#ffe2b4;
+  --backdrop:#f3d9a4;
+  --card:#fffdf4;
+  --maroon:#8e1b1b;
+  --maroon-deep:#5e0f14;
+  --green:#25772f;
+  --leaf:#2f8f2a;
+  --marigold:#f59e0b;
+  --orange:#e8590c;
+  --gold:#c8962e;
+  --gold-light:#f4cf75;
+  --ink:#5a2a1a;
+  --te:'Ramaraja','Nirmala UI','Gautami',serif;
+  --script:'Pinyon Script','Snell Roundhand',cursive;
+  --body:'Hind Guntur','Nirmala UI','Segoe UI',system-ui,sans-serif;
+  color-scheme:light;
+}
+*{box-sizing:border-box}
+html{background:var(--backdrop)}
+body{
+  margin:0;
+  background:var(--backdrop);color:var(--ink);font-family:var(--body);font-size:17px;line-height:1.55;
+  padding-left:max(0px,env(safe-area-inset-left,0px));
+  padding-right:max(0px,env(safe-area-inset-right,0px));
+  padding-block:0;overflow-x:hidden;
+}
+svg{display:block}
+.page{max-width:560px;margin-inline:auto;background:var(--ivory);position:relative;overflow:hidden;box-shadow:0 0 60px rgba(120,60,10,.28)}
+.gut{padding-left:max(28px,env(safe-area-inset-left,0px));padding-right:max(28px,env(safe-area-inset-right,0px))}
+/* zari saree-border frame down both edges */
+.page::before,.page::after{content:"";position:absolute;top:0;bottom:0;width:16px;z-index:2;pointer-events:none;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='32'%3E%3Crect width='16' height='32' fill='%238e1b1b'/%3E%3Crect x='1' width='1.5' height='32' fill='%23f4cf75'/%3E%3Crect x='13.5' width='1.5' height='32' fill='%23f4cf75'/%3E%3Cpath d='M8 3L12 16L8 29L4 16Z' fill='%23f4cf75'/%3E%3Cpath d='M8 9L10 16L8 23L6 16Z' fill='%238e1b1b'/%3E%3C/svg%3E") 0 0 repeat-y}
+.page::before{left:0}.page::after{right:0}
+.card::before{content:"";position:absolute;left:24px;right:24px;top:9px;height:6px;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='6'%3E%3Crect width='14' height='6' fill='%238e1b1b'/%3E%3Cpath d='M7 .5L10 3L7 5.5L4 3Z' fill='%23f4cf75'/%3E%3C/svg%3E") 0 0 repeat-x;opacity:.9}
+.shubha{font-family:var(--te);color:var(--maroon);font-size:22px;letter-spacing:.12em;margin:12px 0 0}
+.blessing{font-family:var(--te);color:var(--maroon);font-size:16px;margin:6px 0 0;word-spacing:.3em}
+.parents{margin:16px auto 0;font-size:14px;max-width:32ch;opacity:.85;line-height:1.5}
+.card.main .pan{font-family:var(--te);font-size:19px;line-height:1.4;margin:10px 0 0;color:#ffe7a3}
+.card.main .vn{margin-top:20px;padding-top:16px;border-top:1px solid rgba(244,207,117,.4)}
+.card.main .vn .vt{font-family:var(--te);font-size:24px;line-height:1.3;margin:4px 0 0;color:#ffe7a3}
+.card.main .vn p{margin:2px 0 0;color:var(--gold-light)}
+.card.main .vn .en{margin-top:12px}
+.names .pre{font-family:var(--te);font-size:.3em;color:var(--orange);margin-right:.4em;vertical-align:.6em}
+.kolam{display:grid;place-items:center;padding-top:30px}
+.kolam svg{width:96px;height:96px;animation:spin 40s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+/* ---------- hero ---------- */
+.hero{position:relative;background:linear-gradient(#fffbe6 0%,#fff6d6 45%,#ffe9bf 75%,#ffe2b4 100%)}
+.garland{position:absolute;top:0;left:0;width:100%;height:auto;z-index:3;pointer-events:none}
+.petals{position:absolute;inset:0;overflow:hidden;z-index:2;pointer-events:none}
+.petals i{position:absolute;top:-24px;width:9px;height:14px;border-radius:60% 0 60% 0;background:linear-gradient(135deg,#ffb629,#ec6a0c);opacity:.85;animation:fall linear infinite}
+@keyframes fall{0%{transform:translate3d(0,-30px,0) rotate(0)}50%{transform:translate3d(26px,380px,0) rotate(200deg)}100%{transform:translate3d(-12px,780px,0) rotate(420deg)}}
+.hero-text{position:relative;z-index:1;text-align:center;padding:92px 56px 6px}
+.kalash-top{width:46px;height:64px;margin:0 auto 4px;animation:float 5s ease-in-out infinite}
+.shloka{font-family:var(--te);color:var(--orange);font-size:19px;margin:0}
+.inv-title{font-family:var(--te);color:var(--green);font-size:clamp(38px,11vw,54px);line-height:1.15;margin:8px 0 6px;font-weight:400;text-shadow:0 2px 0 rgba(255,255,255,.7)}
+.lead{font-size:15px;color:var(--ink);opacity:.85;margin:0 auto;max-width:34ch}
+.names{margin:14px 0 0;font-family:var(--script);color:var(--maroon);line-height:1.02}
+.names .nm{display:block;font-size:clamp(44px,12vw,62px);text-wrap:balance}
+.names .nm.a{text-align:left;padding-left:6%}
+.names .nm.b{text-align:right;padding-right:2%}
+.names .weds{display:block;font-size:30px;color:var(--orange);margin:-4px 0 -6px}
+.hero-date{margin:6px 0 0;font-size:16px;letter-spacing:.14em;text-transform:uppercase;color:var(--maroon);font-weight:500}
+.hero-date span{font-family:var(--te);letter-spacing:0;text-transform:none;font-size:17px;color:var(--orange)}
+.scene{position:relative;z-index:1;margin-top:-6px;background:radial-gradient(ellipse 60% 48% at 50% 58%,rgba(255,196,120,.85),rgba(255,196,120,0) 70%)}
+.scene svg{width:100%;height:auto}
+.scene .mono{position:absolute;left:50%;top:2%;transform:translateX(-50%);width:68px;height:68px;border-radius:50%;border:1.5px solid var(--gold);display:grid;place-items:center;font-family:var(--script);color:var(--maroon);font-size:30px;background:rgba(255,250,230,.6)}
+
+/* hero animation */
+.sw{animation:swagIn 1.1s cubic-bezier(.2,.8,.2,1) both}
+@keyframes swagIn{from{opacity:0;transform:translateY(-26px)}}
+.st{transform-box:fill-box;transform-origin:50% 0}
+.sway{transform-box:fill-box;transform-origin:50% 100%;animation:swayP 7s ease-in-out infinite alternate}
+.palm .fr{transform-box:fill-box;transform-origin:0 100%}
+@keyframes swayP{from{rotate:-1.6deg}to{rotate:1.6deg}}
+@keyframes swayG{from{rotate:-1.1deg}to{rotate:1.1deg}}
+@keyframes dropG{from{transform:translateY(-115%)}}
+@keyframes float{50%{transform:translateY(-5px)}}
+.couple{animation:walkIn 1.6s .5s cubic-bezier(.2,.8,.2,1) both}
+@keyframes walkIn{from{opacity:0;transform:translateY(34px)}}
+.bob-a{transform-box:fill-box;transform-origin:50% 100%;animation:bob 2.6s ease-in-out infinite}
+.bob-b{transform-box:fill-box;transform-origin:50% 100%;animation:bob 2.6s -1.3s ease-in-out infinite}
+@keyframes bob{50%{transform:translateY(-4px)}}
+.blink{transform-box:fill-box;transform-origin:50% 50%;animation:blink 5s infinite}
+@keyframes blink{0%,93%,100%{transform:scaleY(1)}96%{transform:scaleY(.1)}}
+.flame{transform-box:fill-box;transform-origin:50% 100%;animation:flicker 1.4s ease-in-out infinite alternate}
+@keyframes flicker{0%{transform:scale(1,1) rotate(-3deg)}50%{transform:scale(.92,1.08) rotate(2deg)}100%{transform:scale(1.05,.95) rotate(-1deg)}}
+
+/* ---------- dividers ---------- */
+.marigold-strip{height:34px;background:
+  radial-gradient(circle at 50% 8px,#f59e0b 0 8px,transparent 9px) 0 0/30px 34px repeat-x,
+  radial-gradient(circle at 50% 18px,#f97316 0 7px,transparent 8px) 15px 0/30px 34px repeat-x,
+  radial-gradient(circle at 50% 26px,#ffc933 0 6px,transparent 7px) 0 0/30px 34px repeat-x;
+  background-color:#2f8f2a}
+.leaf-toran{height:38px;background:
+  url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='26' height='34'%3E%3Cpath d='M13 0C23 9 23 24 13 34C3 24 3 9 13 0Z' fill='%232f8f2a'/%3E%3Cpath d='M13 5V31' stroke='%231d6b1c' stroke-width='1'/%3E%3C/svg%3E") 0 4px repeat-x;
+  position:relative;transform-origin:50% 0}
+.leaf-toran::before{content:"";position:absolute;left:0;right:0;top:0;height:3px;background:var(--gold)}
+.muggu{height:26px;margin:6px 0;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='26'%3E%3Cpath d='M0 13Q15 0 30 13T60 13' fill='none' stroke='%238e1b1b' stroke-width='1.6'/%3E%3Ccircle cx='15' cy='22' r='2.2' fill='%238e1b1b'/%3E%3Ccircle cx='45' cy='4' r='2.2' fill='%238e1b1b'/%3E%3C/svg%3E") 0 0 repeat-x;opacity:.85}
+
+/* ---------- countdown ---------- */
+.cd-sec{text-align:center;padding-block:40px 16px}
+.cd-sec .te{font-family:var(--te);color:var(--green);font-size:24px;margin:0}
+.cd-sec .en{margin:0 0 18px;font-size:14px;letter-spacing:.16em;text-transform:uppercase;color:var(--maroon)}
+.cds{display:flex;justify-content:center;gap:14px}
+.cd{width:84px;height:84px;border-radius:50%;border:2px solid var(--gold);background:radial-gradient(circle at 50% 35%,#fffdf0,#fde9b8);display:grid;place-content:center;box-shadow:0 0 0 5px var(--ivory),0 0 0 6.5px rgba(200,150,46,.5)}
+.cd b{font-family:var(--te);font-weight:400;font-size:30px;line-height:1;color:var(--maroon);font-variant-numeric:tabular-nums}
+.cd span{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink)}
+
+/* ---------- schedule ---------- */
+.sec-head{text-align:center;padding-block:34px 6px}
+.sec-head h2{font-family:var(--te);font-weight:400;font-size:clamp(30px,8vw,38px);color:var(--maroon);margin:0}
+.sec-head p{margin:2px 0 0;font-size:14px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink);opacity:.8}
+.day{padding-bottom:30px}
+.day-head{text-align:center;padding-block:14px 22px}
+.day-head .wd{display:block;font-family:var(--te);color:var(--orange);font-size:24px;line-height:1.2}
+.day-head .d{display:block;font-family:var(--script);font-size:78px;line-height:.95;color:var(--maroon)}
+.day-head .mo{display:block;font-size:14px;letter-spacing:.18em;text-transform:uppercase;color:var(--ink)}
+.cards{display:flex;flex-direction:column;gap:46px;padding-top:12px}
+.card{position:relative;background:var(--card);border:1.5px solid var(--gold);border-radius:16px;padding:46px 22px 26px;text-align:center;
+  box-shadow:inset 0 0 0 5px var(--card),inset 0 0 0 6.5px rgba(200,150,46,.55),0 10px 22px rgba(142,27,27,.1);min-width:0}
+.badge{position:absolute;left:50%;top:-34px;transform:translateX(-50%);width:68px;height:68px;border-radius:50%;background:var(--ivory);border:1.5px solid var(--gold);display:grid;place-items:center;box-shadow:0 0 0 4px var(--ivory)}
+.badge svg{width:42px;height:42px}
+.card h3{font-family:var(--te);font-weight:400;font-size:36px;line-height:1.15;color:var(--maroon);margin:0}
+.card .en{margin:2px 0 0;font-size:14px;letter-spacing:.2em;text-transform:uppercase;color:var(--green);font-weight:500}
+.card .orn{height:14px;margin:12px auto;width:120px;background:linear-gradient(var(--gold),var(--gold)) 0 50%/44px 1px no-repeat,linear-gradient(var(--gold),var(--gold)) 100% 50%/44px 1px no-repeat;position:relative}
+.card .orn::after{content:"";position:absolute;left:50%;top:50%;width:8px;height:8px;background:var(--orange);transform:translate(-50%,-50%) rotate(45deg)}
+.time{font-family:var(--te);font-size:34px;line-height:1.1;color:var(--ink);font-variant-numeric:tabular-nums;margin:0}
+.when{margin:2px 0 0;font-size:15px;color:var(--ink);opacity:.85}
+.desc{margin:12px auto 0;max-width:34ch;font-size:15.5px;font-weight:300}
+.cal{display:inline-block;margin-top:16px;padding:8px 18px;border:1.5px solid var(--gold);border-radius:99px;color:var(--maroon);font-size:14px;font-weight:500;text-decoration:none;transition:background .25s,color .25s}
+.cal:hover{background:var(--maroon);color:var(--gold-light)}
+.cal:focus-visible{outline:2px solid var(--maroon);outline-offset:3px}
+
+.card.main{background:linear-gradient(160deg,#7a1218,#5e0f14 60%,#6e1319);border-color:var(--gold-light);color:var(--gold-light);
+  box-shadow:inset 0 0 0 5px #6a1117,inset 0 0 0 6.5px rgba(244,207,117,.7),0 14px 30px rgba(94,15,20,.35)}
+.card.main::after{content:"";position:absolute;inset:0;border-radius:16px;pointer-events:none;background:linear-gradient(110deg,transparent 35%,rgba(255,235,170,.22) 50%,transparent 65%);background-size:250% 100%;animation:shine 5s 1s infinite}
+@keyframes shine{from{background-position:130% 0}to{background-position:-130% 0}}
+.card.main h3{color:#ffe7a3;font-size:44px}
+.card.main .en,.card.main .time,.card.main .when,.card.main .desc{color:var(--gold-light)}
+.card.main .badge{background:#6a1117;border-color:var(--gold-light);box-shadow:0 0 0 4px var(--ivory);width:84px;height:84px;top:-42px}
+.card.main .badge svg{width:64px;height:48px}
+.card.main .tag{font-size:12px;letter-spacing:.24em;text-transform:uppercase;margin:12px 0 0;color:#fff;opacity:.85}
+.card.main .cal{border-color:var(--gold-light);color:var(--gold-light)}
+.card.main .cal:hover{background:var(--gold-light);color:var(--maroon-deep)}
+.card.main .cal:focus-visible{outline-color:var(--gold-light)}
+.card.main{padding-top:60px}
+
+/* ---------- footer ---------- */
+.fin{text-align:center;padding-block:20px 0;background:linear-gradient(var(--ivory),var(--peach))}
+.fin .kal{width:56px;height:78px;margin:0 auto}
+.fin .te{font-family:var(--te);color:var(--green);font-size:28px;line-height:1.3;margin:10px 0 0}
+.fin p{margin:6px auto 0;max-width:34ch;font-weight:300}
+.fin .love{font-family:var(--script);color:var(--maroon);font-size:34px;margin-top:12px}
+.diyas{display:flex;justify-content:center;gap:22px;padding-block:20px 24px}
+.diyas svg{width:44px;height:38px}
+.diyas svg:nth-child(2n) .flame{animation-delay:-.6s}
+
+/* scroll reveal */
+.rv{transition:opacity .9s ease,transform .9s cubic-bezier(.2,.8,.2,1)}
+.rv.hide{opacity:0;transform:translateY(34px)}
+.leaf-toran.rv{transition:clip-path 1.1s ease,opacity .6s}
+.leaf-toran.rv.hide{opacity:1;transform:none;clip-path:inset(0 100% 0 0)}
+.leaf-toran.rv{clip-path:inset(0 0 0 0)}
+
+@media (max-width:420px){
+  .hero-text{padding-inline:40px}
+  .cd{width:76px;height:76px}
+  .card h3{font-size:32px}
+  .card.main h3{font-size:38px}
+}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation:none!important;transition:none!important}
+  .petals{display:none}
+  .rv.hide{opacity:1;transform:none;clip-path:none}
+}
+[hidden]{display:none!important}
+</style>
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <linearGradient id="gold" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#f6d77a"/><stop offset="1" stop-color="#b9791a"/></linearGradient>
+    <symbol id="kalash" viewBox="0 0 80 110">
+      <g fill="#2f8f2a" stroke="#1d6b1c" stroke-width=".8">
+        <path d="M40 58C28 44 30 26 40 12C50 26 52 44 40 58Z" transform="rotate(-62 40 58)"/>
+        <path d="M40 58C28 44 30 26 40 12C50 26 52 44 40 58Z" transform="rotate(62 40 58)"/>
+        <path d="M40 58C28 44 30 26 40 12C50 26 52 44 40 58Z" transform="rotate(-32 40 58)"/>
+        <path d="M40 58C28 44 30 26 40 12C50 26 52 44 40 58Z" transform="rotate(32 40 58)"/>
+        <path d="M40 58C28 44 30 26 40 12C50 26 52 44 40 58Z"/>
+      </g>
+      <circle cx="40" cy="30" r="13" fill="#8a5a2b"/><circle cx="40" cy="30" r="13" fill="none" stroke="#5e3a18" stroke-width="1"/>
+      <circle cx="36" cy="27" r="1.6" fill="#4a2c10"/><circle cx="44" cy="27" r="1.6" fill="#4a2c10"/><circle cx="40" cy="33" r="1.6" fill="#4a2c10"/>
+      <path d="M29 56H51L55 66H25Z" fill="url(#gold)"/>
+      <path d="M26 66H54C70 78 66 104 40 106C14 104 10 78 26 66Z" fill="url(#gold)"/>
+      <path d="M22 80C34 86 46 86 58 80" fill="none" stroke="#b3201a" stroke-width="3"/>
+      <circle cx="40" cy="92" r="4" fill="#d9372b"/>
+    </symbol>
+    <symbol id="diya" viewBox="0 0 60 50">
+      <path class="flame" d="M30 4C38 14 38 22 30 26C22 22 22 14 30 4Z" fill="#ff9a1f"/>
+      <path class="flame" d="M30 12C34 17 34 22 30 25C26 22 26 17 30 12Z" fill="#ffe27a"/>
+      <path d="M5 28H55C54 42 44 48 30 48C16 48 6 42 5 28Z" fill="#c8741e"/>
+      <path d="M5 28H55" stroke="#8a4a10" stroke-width="2"/>
+      <path d="M10 33H50" stroke="#f2b24a" stroke-width="1.5"/>
+    </symbol>
+    <symbol id="bowl" viewBox="0 0 60 50">
+      <path d="M10 26C14 8 46 8 50 26Z" fill="#f2b705"/>
+      <path d="M20 20L26 14M32 18L38 13M28 22L36 20" stroke="#d99a00" stroke-width="1.5" stroke-linecap="round"/>
+      <path d="M4 26H56C54 42 44 48 30 48C16 48 6 42 4 26Z" fill="#b8651c"/>
+      <path d="M8 31H52" stroke="#f0b05a" stroke-width="1.5"/>
+    </symbol>
+  </defs>
+</svg>
+
+<div class="page">
+  <!-- ================= HERO ================= -->
+  <section class="hero" aria-label="Wedding invitation">
+    <svg id="garland" class="garland" viewBox="0 0 560 300" aria-hidden="true"></svg>
+    <div class="petals" id="petals" aria-hidden="true"></div>
+
+    <div class="hero-text">
+      <svg class="kalash-top" aria-hidden="true"><use href="#kalash"/></svg>
+      <p class="shloka">|| శ్రీ గణేశాయ నమః ||</p>
+      <p class="blessing">శ్రీరస్తు · శుభమస్తు · అవిఘ్నమస్తు</p>
+      <p class="shubha">శుభలేఖ</p>
+      <h1 class="inv-title">వివాహ ఆహ్వానము</h1>
+      <p class="lead">Annapareddy's wedding invitation. We cordially invite you, with family and friends, to the marriage of our younger daughter</p>
+      <p class="names"><span class="nm a"><span class="pre">చి.ల.సౌ॥</span><span id="bride">Mounika</span></span><span class="weds">with</span><span class="nm b"><span class="pre">చి॥</span><span id="groom">Vamsi Krishna</span></span></p>
+      <p class="parents">Chi. Vamsi Krishna, elder son of Sri Kolli Venkata Vara Prasad (Late) &amp; Rajani, Penamaluru, Krishna Dist.</p>
+      <p class="hero-date"><span>నవంబర్</span> &nbsp;20 · 21 · 22 &nbsp;2026</p>
+    </div>
+
+    <div class="scene">
+      <div class="mono" id="mono" aria-hidden="true">G&amp;B</div>
+      <svg id="scene" viewBox="0 0 560 520" role="img" aria-label="Illustration of a couple in traditional Telugu wedding attire walking hand in hand between banana and coconut trees">
+        <defs>
+          <linearGradient id="leafG" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#6fcb45"/><stop offset="1" stop-color="#2b8a28"/></linearGradient>
+          <linearGradient id="grassG" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#58bf3c"/><stop offset="1" stop-color="#2c8d2a"/></linearGradient>
+        </defs>
+        <g opacity=".55" fill="#f2c79a" stroke="#d8995f" stroke-width="1.2" aria-hidden="true">
+          <rect x="100" y="410" width="360" height="62"/><rect x="130" y="350" width="300" height="60"/><rect x="160" y="296" width="240" height="54"/><rect x="190" y="248" width="180" height="48"/><rect x="220" y="206" width="120" height="42"/><rect x="250" y="178" width="60" height="28"/>
+          <path d="M256 178Q280 142 304 178Z"/><circle cx="280" cy="140" r="5"/><circle cx="262" cy="150" r="3"/><circle cx="298" cy="150" r="3"/>
+          <g fill="#d8995f" stroke="none"><rect x="268" y="424" width="24" height="48" rx="12"/><rect x="150" y="428" width="14" height="30" rx="7"/><rect x="396" y="428" width="14" height="30" rx="7"/><rect x="210" y="370" width="14" height="26" rx="7"/><rect x="336" y="370" width="14" height="26" rx="7"/><rect x="273" y="366" width="14" height="28" rx="7"/><rect x="250" y="314" width="12" height="22" rx="6"/><rect x="298" y="314" width="12" height="22" rx="6"/><rect x="274" y="266" width="12" height="20" rx="6"/><rect x="274" y="222" width="12" height="18" rx="6"/></g>
+        </g>
+        <g id="s-back"></g>
+        <g id="s-fence"></g>
+        <g id="s-bush"></g>
+        <g id="s-plants"></g>
+        <path d="M0 470C120 452 240 478 360 462C450 452 520 470 560 462V520H0Z" fill="url(#grassG)"/>
+        <g id="s-grass"></g>
+
+        <!-- couple (original illustration) -->
+        <g class="couple" transform="translate(137 120) scale(.95)">
+          <!-- BRIDE -->
+          <g class="bob-a">
+            <ellipse cx="75" cy="384" rx="10" ry="5" fill="#c98a5e"/><ellipse cx="112" cy="384" rx="10" ry="5" fill="#c98a5e"/>
+            <path d="M66 196L124 196L152 380L38 380Z" fill="#d23a2a"/>
+            <path d="M44 350L146 350L148 366L42 366Z" fill="#f6e3b4"/>
+            <path d="M41 366L149 366L152 380L38 380Z" fill="url(#gold)"/>
+            <path d="M64 156L86 156L132 340L106 340Z" fill="#c42b1f" stroke="#e6b93f" stroke-width="2.5"/>
+            <path d="M64 156Q95 146 126 156L124 214L66 214Z" fill="#1f7a3a"/>
+            <path d="M66 198L124 198" stroke="#e6b93f" stroke-width="3"/>
+            <path d="M58 170L52 232" stroke="#dda06e" stroke-width="13" stroke-linecap="round"/>
+            <path d="M58 168L55 188" stroke="#1f7a3a" stroke-width="18" stroke-linecap="round"/>
+            <path d="M54 218L56 228M52 222L55 232" stroke="#e6b93f" stroke-width="2.5"/>
+            <path d="M122 168Q140 200 150 240" stroke="#dda06e" stroke-width="13" stroke-linecap="round" fill="none"/>
+            <path d="M122 168L130 186" stroke="#1f7a3a" stroke-width="18" stroke-linecap="round"/>
+            <rect x="88" y="136" width="14" height="18" fill="#dda06e"/>
+            <path d="M80 152Q95 170 110 152" fill="none" stroke="#e6b93f" stroke-width="2.4"/>
+            <path d="M82 156Q95 180 108 156" fill="none" stroke="#e6b93f" stroke-width="1.6"/>
+            <circle cx="95" cy="168" r="3" fill="#d9372b" stroke="#e6b93f"/>
+            <ellipse cx="95" cy="88" rx="47" ry="49" fill="#1a0f0d"/>
+            <circle cx="54" cy="104" r="7" fill="#dda06e"/><circle cx="136" cy="104" r="7" fill="#dda06e"/>
+            <circle cx="52" cy="114" r="3.2" fill="#e6b93f"/><circle cx="138" cy="114" r="3.2" fill="#e6b93f"/>
+            <circle cx="95" cy="100" r="40" fill="#dda06e"/>
+            <path d="M55 98Q54 54 95 52Q136 54 135 98Q120 78 95 76Q70 78 55 98Z" fill="#1a0f0d"/>
+            <path d="M95 52V76" stroke="#3a2420" stroke-width="1.5"/>
+            <path d="M95 60V78" stroke="#e6b93f" stroke-width="1.6"/><circle cx="95" cy="80" r="3.4" fill="#e6b93f"/><circle cx="95" cy="80" r="1.4" fill="#d9372b"/>
+            <path d="M79 102Q85 96 91 102M99 102Q105 96 111 102" fill="none" stroke="#2a1410" stroke-width="2.2" stroke-linecap="round"/>
+            <circle cx="95" cy="90" r="2.6" fill="#d9372b"/>
+            <circle cx="76" cy="116" r="6" fill="#ee8a7a" opacity=".45"/><circle cx="114" cy="116" r="6" fill="#ee8a7a" opacity=".45"/>
+            <path d="M85 117Q95 127 105 117Q95 121 85 117Z" fill="#fff" stroke="#8b2a1a" stroke-width="1.8" stroke-linejoin="round"/>
+            <circle cx="95" cy="108" r="1.4" fill="#e6b93f"/>
+          </g>
+          <!-- GROOM -->
+          <g class="bob-b">
+            <ellipse cx="180" cy="382" rx="14" ry="5" fill="#7a4a22"/><ellipse cx="232" cy="382" rx="14" ry="5" fill="#7a4a22"/>
+            <path d="M158 262L254 262L262 372L150 372Z" fill="#f3e1b6"/>
+            <path d="M176 262L184 372M206 262L208 372M236 262L232 372" stroke="#dcc590" stroke-width="1.6" fill="none"/>
+            <path d="M150 358L262 358L262 372L150 372Z" fill="url(#gold)"/>
+            <path d="M160 266Q214 310 252 266" fill="none" stroke="#e6b93f" stroke-width="3"/>
+            <path d="M160 156Q205 146 250 156L254 270L156 270Z" fill="#f6e8c6"/>
+            <rect x="199" y="150" width="8" height="120" fill="#e6b93f"/>
+            <path d="M246 164Q256 210 252 250" stroke="#f6e8c6" stroke-width="18" stroke-linecap="round" fill="none"/>
+            <circle cx="252" cy="256" r="8" fill="#c98a5e"/>
+            <path d="M164 166Q158 212 158 244" stroke="#f6e8c6" stroke-width="18" stroke-linecap="round" fill="none"/>
+            <circle cx="155" cy="250" r="8" fill="#c98a5e"/>
+            <circle cx="150" cy="244" r="7" fill="#dda06e"/>
+            <rect x="198" y="136" width="14" height="18" fill="#c98a5e"/>
+            <circle cx="165" cy="104" r="7" fill="#c98a5e"/><circle cx="245" cy="104" r="7" fill="#c98a5e"/>
+            <circle cx="205" cy="100" r="40" fill="#c98a5e"/>
+            <path d="M165 100Q162 56 205 52Q248 56 245 100Q230 80 205 78Q180 80 165 100Z" fill="#150c0a"/>
+            <path d="M166 106Q168 150 205 152Q242 150 244 106Q238 130 205 132Q172 130 166 106Z" fill="#150c0a"/>
+            <path d="M188 92L198 91M212 91L222 92" stroke="#150c0a" stroke-width="3" stroke-linecap="round"/>
+            <g class="blink"><circle cx="192" cy="102" r="4" fill="#150c0a"/><circle cx="218" cy="102" r="4" fill="#150c0a"/></g>
+            <circle cx="193.5" cy="100.5" r="1.3" fill="#fff"/><circle cx="219.5" cy="100.5" r="1.3" fill="#fff"/>
+            <path d="M193 124Q205 136 217 124Q205 128 193 124Z" fill="#fff" stroke="#150c0a" stroke-width="1"/>
+            <path d="M203 108Q205 113 207 108" fill="none" stroke="#9c6238" stroke-width="1.6"/>
+            <path d="M245 100L245 110" stroke="#e6b93f" stroke-width="2"/>
+            <path d="M205 82Q216 84 218 78" fill="none" stroke="#e8590c" stroke-width="0"/>
+            <path d="M190 78Q205 70 220 78" fill="none" stroke="#e6b93f" stroke-width="3" stroke-linecap="round" opacity=".0"/>
+          </g>
+        </g>
+      </svg>
+    </div>
+  </section>
+
+  <div class="marigold-strip" aria-hidden="true"></div>
+
+  <!-- ================= COUNTDOWN ================= -->
+  <section class="cd-sec gut rv" aria-label="Countdown to the wedding">
+    <p class="te">శుభ ముహూర్తానికి</p>
+    <p class="en" id="cd-label">Until the wedding muhurtham</p>
+    <div class="cds" id="cds">
+      <div class="cd"><b id="cd-d">--</b><span>Days</span></div>
+      <div class="cd"><b id="cd-h">--</b><span>Hours</span></div>
+      <div class="cd"><b id="cd-m">--</b><span>Mins</span></div>
+    </div>
+    <div class="muggu" style="margin-top:28px" aria-hidden="true"></div>
+  </section>
+
+  <!-- ================= SCHEDULE ================= -->
+  <div class="kolam rv" aria-hidden="true"><svg viewBox="-50 -50 100 100"><g fill="none" stroke="#8e1b1b" stroke-width="1.6"><ellipse cx="0" cy="-17" rx="7" ry="17"/><ellipse cx="0" cy="-17" rx="7" ry="17" transform="rotate(45)"/><ellipse cx="0" cy="-17" rx="7" ry="17" transform="rotate(90)"/><ellipse cx="0" cy="-17" rx="7" ry="17" transform="rotate(135)"/><ellipse cx="0" cy="-17" rx="7" ry="17" transform="rotate(180)"/><ellipse cx="0" cy="-17" rx="7" ry="17" transform="rotate(225)"/><ellipse cx="0" cy="-17" rx="7" ry="17" transform="rotate(270)"/><ellipse cx="0" cy="-17" rx="7" ry="17" transform="rotate(315)"/><circle r="40" stroke-width="3.4" stroke-linecap="round" stroke-dasharray="0.1 15.7"/><circle r="46" stroke-width="2.2" stroke-linecap="round" stroke-dasharray="0.1 9.6" stroke="#e8590c"/></g><circle r="5" fill="#e8590c"/></svg></div>
+  <div class="sec-head gut rv">
+    <h2>వేడుకల వివరాలు</h2>
+    <p>The Celebrations · Indian Standard Time</p>
+  </div>
+
+  <!-- Day 1 -->
+  <section class="day" aria-label="Friday 20 November 2026">
+    <div class="leaf-toran rv" aria-hidden="true"></div>
+    <div class="day-head rv">
+      <span class="wd">శుక్రవారం</span><span class="d">20</span><span class="mo">November 2026 · Friday</span>
+    </div>
+    <div class="cards gut">
+      <article class="card rv">
+        <div class="badge"><svg aria-hidden="true"><use href="#bowl"/></svg></div>
+        <h3>హల్దీ</h3>
+        <p class="en">Haldi</p>
+        <div class="orn" aria-hidden="true"></div>
+        <p class="time">9:00 AM</p>
+        <p class="when">Friday, 20 November 2026</p>
+        <p class="desc">A morning of turmeric, laughter and blessings with family and friends.</p>
+        <a class="cal" href="https://calendar.google.com/calendar/render?action=TEMPLATE&amp;text=Haldi&amp;dates=20261120T090000/20261120T120000&amp;ctz=Asia/Kolkata" target="_blank" rel="noopener">Add to Google Calendar</a>
+      </article>
+    </div>
+  </section>
+
+  <!-- Day 2 -->
+  <section class="day" aria-label="Saturday 21 November 2026">
+    <div class="leaf-toran rv" aria-hidden="true"></div>
+    <div class="day-head rv">
+      <span class="wd">శనివారం</span><span class="d">21</span><span class="mo">November 2026 · Saturday</span>
+    </div>
+    <div class="cards gut">
+      <article class="card rv">
+        <div class="badge"><svg aria-hidden="true"><use href="#diya"/></svg></div>
+        <h3>పెళ్ళికొడుకు</h3>
+        <p class="en">Pellikoduku</p>
+        <div class="orn" aria-hidden="true"></div>
+        <p class="time">10:00 AM</p>
+        <p class="when">Saturday, 21 November 2026</p>
+        <p class="desc">The groom's ceremony, as he is prepared and blessed before the wedding.</p>
+        <a class="cal" href="https://calendar.google.com/calendar/render?action=TEMPLATE&amp;text=Pellikoduku&amp;dates=20261121T100000/20261121T130000&amp;ctz=Asia/Kolkata" target="_blank" rel="noopener">Add to Google Calendar</a>
+      </article>
+      <article class="card rv">
+        <div class="badge"><svg aria-hidden="true"><use href="#diya"/></svg></div>
+        <h3>పెళ్ళికూతురు</h3>
+        <p class="en">Pellikuturu</p>
+        <div class="orn" aria-hidden="true"></div>
+        <p class="time">10:00 AM</p>
+        <p class="when">Saturday, 21 November 2026</p>
+        <p class="desc">The bride's ceremony, as she is prepared and blessed before the wedding.</p>
+        <a class="cal" href="https://calendar.google.com/calendar/render?action=TEMPLATE&amp;text=Pellikuturu&amp;dates=20261121T100000/20261121T130000&amp;ctz=Asia/Kolkata" target="_blank" rel="noopener">Add to Google Calendar</a>
+      </article>
+      <article class="card main rv">
+        <div class="badge"><svg id="rings" viewBox="0 0 96 72" aria-hidden="true"></svg></div>
+        <h3>పెళ్ళి</h3>
+        <p class="en">Pelli · The Wedding</p>
+        <div class="orn" aria-hidden="true"></div>
+        <p class="time">8:52 PM</p>
+        <p class="when">Saturday, 21 November 2026</p>
+        <p class="tag">Sumuhurtham</p>
+        <p class="pan">రేవతి నక్షత్రయుక్త మిథున లగ్న పుష్కరాంశము నందు</p>
+        <p class="desc">Parabhava nama samvatsaram, Karthika Shuddha Dwadashi. Please join us a little before, so you can take your seat and be part of the moment.</p>
+        <div class="vn">
+          <p class="en">కళ్యాణ వేదిక · Venue</p>
+          <p class="vt">అన్నే అరుణ కళ్యాణ మండపము</p>
+          <p>Anne Aruna Kalyana Mandapam, Kanuru, Vijayawada</p>
+          <a class="cal" href="https://www.google.com/maps/search/?api=1&amp;query=Anne+Aruna+Kalyana+Mandapam+Kanuru+Vijayawada" target="_blank" rel="noopener">Open in Google Maps</a>
+          <p class="en">విందు · Dinner</p>
+          <p>From 8:00 PM onwards at the venue</p>
+        </div>
+        <a class="cal" href="https://calendar.google.com/calendar/render?action=TEMPLATE&amp;text=Pelli%20(Wedding)&amp;dates=20261121T205200/20261121T233000&amp;ctz=Asia/Kolkata&amp;location=Anne%20Aruna%20Kalyana%20Mandapam%2C%20Kanuru%2C%20Vijayawada" target="_blank" rel="noopener">Add to Google Calendar</a>
+      </article>
+    </div>
+  </section>
+
+  <!-- Day 3 -->
+  <section class="day" aria-label="Sunday 22 November 2026">
+    <div class="leaf-toran rv" aria-hidden="true"></div>
+    <div class="day-head rv">
+      <span class="wd">ఆదివారం</span><span class="d">22</span><span class="mo">November 2026 · Sunday</span>
+    </div>
+    <div class="cards gut">
+      <article class="card rv">
+        <div class="badge"><svg aria-hidden="true"><use href="#kalash"/></svg></div>
+        <h3>వ్రతం</h3>
+        <p class="en">Vratam</p>
+        <div class="orn" aria-hidden="true"></div>
+        <p class="time">9:00 AM</p>
+        <p class="when">Sunday, 22 November 2026</p>
+        <p class="desc">The couple's first puja together, to seek blessings for the life ahead.</p>
+        <a class="cal" href="https://calendar.google.com/calendar/render?action=TEMPLATE&amp;text=Vratam&amp;dates=20261122T090000/20261122T120000&amp;ctz=Asia/Kolkata" target="_blank" rel="noopener">Add to Google Calendar</a>
+      </article>
+    </div>
+  </section>
+
+  <!-- ================= FOOTER ================= -->
+  <div class="marigold-strip" aria-hidden="true"></div>
+  <footer class="fin gut">
+    <svg class="kal" aria-hidden="true"><use href="#kalash"/></svg>
+    <p class="te rv" style="font-size:24px;color:#8e1b1b;margin-top:6px">శుభమస్తు</p>
+    <p class="te rv">మీ రాకతో మా వేడుక సంపూర్ణం</p>
+    <p class="rv">Your presence and blessings will make our celebration complete. We look forward to welcoming you.</p>
+    <p class="rv">ఆహ్వానించువారు · Invited by</p>
+    <p class="love rv">Annapareddy Padmavathi</p>
+    <p class="rv" style="margin-top:0">W/o Thirupathi Reddy (Late)</p>
+    <div class="diyas" aria-hidden="true">
+      <svg><use href="#diya"/></svg><svg><use href="#diya"/></svg><svg><use href="#diya"/></svg><svg><use href="#diya"/></svg><svg><use href="#diya"/></svg>
+    </div>
+  </footer>
+</div>
+
+<script>
+(function(){
+  /* ---- edit the couple's names here ---- */
+  var GROOM='Vamsi Krishna', BRIDE='Mounika';
+
+  var NS='http://www.w3.org/2000/svg';
+  function el(tag,attrs,parent){var e=document.createElementNS(NS,tag);for(var k in attrs)e.setAttribute(k,attrs[k]);if(parent)parent.appendChild(e);return e}
+  var seed=7;function rnd(){seed|=0;seed=seed+0x6D2B79F5|0;var t=Math.imul(seed^seed>>>15,1|seed);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296}
+
+  document.getElementById('groom').textContent=GROOM;
+  document.getElementById('bride').textContent=BRIDE;
+  document.getElementById('mono').innerHTML=BRIDE.charAt(0).toUpperCase()+'&amp;'+GROOM.charAt(0).toUpperCase();
+
+  /* ---- marigold ---- */
+  function flower(p,x,y,r,i){
+    var g=el('g',{},p);
+    el('circle',{cx:x,cy:y,r:r,fill:i%3===0?'#f97316':'#f59e0b'},g);
+    el('circle',{cx:x-r*.12,cy:y-r*.12,r:r*.66,fill:i%2?'#ffc933':'#ffb81f'},g);
+    el('circle',{cx:x,cy:y,r:r*.26,fill:'#d9480f'},g);
+  }
+  function leafDown(p,x,y,len,rot,fill){
+    el('path',{d:'M'+x+' '+y+'C'+(x-len*.28)+' '+(y+len*.3)+' '+(x-len*.26)+' '+(y+len*.75)+' '+x+' '+(y+len)+'C'+(x+len*.26)+' '+(y+len*.75)+' '+(x+len*.28)+' '+(y+len*.3)+' '+x+' '+y+'Z',fill:fill||'#2f8f2a',stroke:'#1d6b1c','stroke-width':.8,transform:'rotate('+rot+' '+x+' '+y+')'},p);
+  }
+  var G=document.getElementById('garland');
+  function swag(x0,x1,y,sag,n,r,delay,off){
+    var g=el('g',{'class':'sw'},G);g.style.animationDelay=delay+'s';
+    var cx=(x0+x1)/2,cy=y+2*sag;
+    for(var i=0;i<=n;i++){var t=i/n,u=1-t;
+      flower(g,u*u*x0+2*u*t*cx+t*t*x1,u*u*y+2*u*t*cy+t*t*y,r,i+off);}
+  }
+  var xs=[0,187,373,560];
+  for(var s=0;s<3;s++){swag(xs[s],xs[s+1],6,50,15,8.5,.1+s*.15,s);}
+  for(var s2=0;s2<3;s2++){swag(xs[s2]+8,xs[s2+1]-8,20,36,12,6.5,.35+s2*.15,s2+1);}
+  [187,373].forEach(function(x,i){var g=el('g',{'class':'sw'},G);g.style.animationDelay=(.6+i*.1)+'s';
+    leafDown(g,x,10,46,-24);leafDown(g,x,10,54,0);leafDown(g,x,10,46,24);flower(g,x,12,9,i);});
+  function strand(x,len,r,delay){
+    var g=el('g',{'class':'st'},G);
+    var step=r*1.55,n=Math.floor(len/step);
+    for(var i=0;i<n;i++)flower(g,x,r+i*step,r,i);
+    var ye=r+n*step;
+    leafDown(g,x,ye-4,34,0);leafDown(g,x,ye-6,26,-28);leafDown(g,x,ye-6,26,28);
+    g.style.animation='dropG 1.3s cubic-bezier(.2,.8,.2,1) '+delay+'s both, swayG '+(5+delay*3)+'s ease-in-out '+(1.5+delay)+'s infinite alternate';
+  }
+  strand(13,250,9,0);strand(36,200,8,.12);strand(547,250,9,.06);strand(524,200,8,.18);
+  function jasmine(x,len,delay){
+    var g=el('g',{'class':'st'},G);
+    for(var i=0;i<Math.floor(len/9);i++){var y=5+i*9;
+      el('circle',{cx:x,cy:y,r:4.6,fill:'#fffdf3',stroke:'#e7dcc0','stroke-width':.6},g);
+      el('circle',{cx:x,cy:y,r:1.4,fill:'#e9c46a'},g);}
+    g.style.animation='dropG 1.3s cubic-bezier(.2,.8,.2,1) '+delay+'s both, swayG 6s ease-in-out '+(1.5+delay)+'s infinite alternate';
+  }
+  jasmine(58,150,.1);jasmine(502,150,.14);
+
+  /* ---- scene: palms, bananas, fence, bushes, grass ---- */
+  var back=document.getElementById('s-back');
+  function palm(bx,by,tx,ty,dir){
+    var g=el('g',{'class':'sway palm'},back);
+    el('path',{d:'M'+bx+' '+by+'Q'+(bx+(tx-bx)*.15)+' '+((by+ty)/2)+' '+tx+' '+ty,stroke:'#7a5a3a','stroke-width':9,fill:'none','stroke-linecap':'round'},g);
+    el('path',{d:'M'+bx+' '+by+'Q'+(bx+(tx-bx)*.15)+' '+((by+ty)/2)+' '+tx+' '+ty,stroke:'#a07a52','stroke-width':3,fill:'none','stroke-dasharray':'2 7','stroke-linecap':'round'},g);
+    var angs=[-172,-145,-118,-92,-64,-36,-8,14];
+    angs.forEach(function(deg,k){
+      var a=deg*Math.PI/180,L=88+rnd()*22;
+      var cx=tx+L*.5*Math.cos(a),cy=ty+L*.5*Math.sin(a)-14;
+      var ex=tx+L*Math.cos(a),ey=ty+L*Math.sin(a)+26;
+      var fr=el('g',{'class':'fr'},g);
+      fr.style.animation='swayP '+(4+rnd()*3)+'s ease-in-out '+(-rnd()*4)+'s infinite alternate';
+      el('path',{d:'M'+tx+' '+ty+'Q'+cx+' '+cy+' '+ex+' '+ey,stroke:'#2b6b22','stroke-width':2.2,fill:'none'},fr);
+      var d1='',d2='';
+      for(var j=1;j<=15;j++){
+        var t=j/15,u=1-t;
+        var px=u*u*tx+2*u*t*cx+t*t*ex,py=u*u*ty+2*u*t*cy+t*t*ey;
+        var tx2=2*u*(cx-tx)+2*t*(ex-cx),ty2=2*u*(cy-ty)+2*t*(ey-cy);
+        var th=Math.atan2(ty2,tx2),ll=30*(1-t*.62);
+        var a1=th+1.05+.25*(1-t),a2=th-1.05-.25*(1-t);
+        d1+='M'+px.toFixed(1)+' '+py.toFixed(1)+'l'+(ll*Math.cos(a1)).toFixed(1)+' '+(ll*Math.sin(a1)+4).toFixed(1);
+        d2+='M'+px.toFixed(1)+' '+py.toFixed(1)+'l'+(ll*Math.cos(a2)).toFixed(1)+' '+(ll*Math.sin(a2)+4).toFixed(1);
+      }
+      el('path',{d:d1,stroke:'#3fa233','stroke-width':3,'stroke-linecap':'round',fill:'none'},fr);
+      el('path',{d:d2,stroke:'#2d8527','stroke-width':3,'stroke-linecap':'round',fill:'none'},fr);
+    });
+    [[-6,8],[5,10],[0,16]].forEach(function(c){el('circle',{cx:tx+c[0],cy:ty+c[1],r:6,fill:'#8a5a2b'},g)});
+  }
+  palm(44,478,66,196);
+  palm(520,478,498,206);
+
+  var fence=document.getElementById('s-fence');
+  el('rect',{x:0,y:432,width:560,height:7,fill:'#efb585'},fence);
+  for(var f=-6;f<570;f+=31){
+    el('path',{d:'M'+f+' 470V412L'+(f+13)+' 398L'+(f+26)+' 412V470Z',fill:'#f8d0a4',stroke:'#e9a971','stroke-width':1},fence);
+  }
+  var bush=document.getElementById('s-bush');
+  for(var b=0;b<560;b+=17){
+    var gy=452+rnd()*10;
+    el('ellipse',{cx:b+rnd()*8,cy:gy,rx:13+rnd()*5,ry:8+rnd()*3,fill:rnd()>.5?'#3f9f33':'#56b53c'},bush);
+    if(rnd()>.45)el('circle',{cx:b+rnd()*14,cy:gy-3+rnd()*6,r:3.6,fill:rnd()>.5?'#f4838a':'#ffb3a1'},bush);
+  }
+
+  var plants=document.getElementById('s-plants');
+  function banana(x,y,sc,flip,delay){
+    var o=el('g',{transform:'translate('+x+' '+y+') scale('+(flip*sc)+' '+sc+')'},plants);
+    var g=el('g',{'class':'sway'},o);g.style.animationDelay=(-delay)+'s';
+    el('path',{d:'M-7 0L-5 -60L5 -60L7 0Z',fill:'#8fbf5a'},g);
+    var angs=[-72,-44,-18,10,38,66],lens=[130,165,190,178,155,125];
+    angs.forEach(function(a,k){
+      var L=lens[k],W=L*.2,lg=el('g',{transform:'translate(0 -50) rotate('+a+')'},g);
+      lg.setAttribute('class','');
+      el('path',{d:'M0 0C'+(-W)+' '+(-L*.25)+' '+(-W*1.05)+' '+(-L*.75)+' 0 '+(-L)+'C'+(W*1.05)+' '+(-L*.75)+' '+W+' '+(-L*.25)+' 0 0Z',fill:'url(#leafG)',stroke:'#237a22','stroke-width':1},lg);
+      el('path',{d:'M0 0L0 '+(-L),stroke:'#1f6a1e','stroke-width':1.6},lg);
+      var v='';for(var q=1;q<7;q++){var yy=-L*q/7.5,w=W*.85*Math.sin(Math.PI*q/7.5);v+='M0 '+yy+'L'+(-w)+' '+(yy-8)+'M0 '+yy+'L'+w+' '+(yy-8);}
+      el('path',{d:v,stroke:'#3c9a30','stroke-width':.9,fill:'none'},lg);
+    });
+    var bn=el('g',{transform:'translate(12 -52)'},g);
+    for(var i=0;i<8;i++){el('ellipse',{cx:i*4.2-14,cy:0,rx:4.6,ry:14,fill:'#f3c623',stroke:'#c99a12','stroke-width':.6,transform:'rotate('+((i-3.5)*8)+' '+(i*4.2-14)+' -10)'},bn);}
+    el('path',{d:'M16 -6C28 -2 28 22 18 28C10 22 8 4 16 -6Z',fill:'#b8336a',stroke:'#8a2250','stroke-width':.8},bn);
+  }
+  banana(34,492,.95,1,0);
+  banana(528,492,.95,-1,3);
+
+  var grass=document.getElementById('s-grass');
+  var gd='';
+  for(var i=0;i<70;i++){var x=rnd()*560,y=478+rnd()*40,h=9+rnd()*8;
+    gd+='M'+x.toFixed(0)+' '+y.toFixed(0)+'q-3 -'+(h*.7).toFixed(0)+' -6 -'+h.toFixed(0)+'M'+x.toFixed(0)+' '+y.toFixed(0)+'l0 -'+h.toFixed(0)+'M'+x.toFixed(0)+' '+y.toFixed(0)+'q3 -'+(h*.7).toFixed(0)+' 6 -'+h.toFixed(0);}
+  el('path',{d:gd,stroke:'#84d84e','stroke-width':1.6,fill:'none','stroke-linecap':'round',opacity:.85},grass);
+  for(var k=0;k<46;k++){el('circle',{cx:rnd()*560,cy:496+rnd()*22,r:1.8+rnd()*1.4,fill:rnd()>.5?'#fff6c8':'#ffd84a'},grass);}
+
+  /* ---- varmala rings on the Pelli badge ---- */
+  var R=document.getElementById('rings');
+  [[34,36,'a'],[62,36,'b']].forEach(function(c,ci){
+    var g=el('g',{},R);
+    for(var i=0;i<14;i++){var a=i/14*Math.PI*2;flower(g,c[0]+Math.cos(a)*20,c[1]+Math.sin(a)*20,5.2,i+ci);}
+  });
+
+  /* ---- falling petals ---- */
+  var pc=document.getElementById('petals');
+  for(var p=0;p<14;p++){var s=document.createElement('i');
+    s.style.left=(rnd()*100)+'%';s.style.animationDuration=(9+rnd()*8)+'s';s.style.animationDelay=(-rnd()*14)+'s';
+    s.style.transform='scale('+(.7+rnd()*.7)+')';pc.appendChild(s);}
+
+  /* ---- countdown to the Pelli muhurtham ---- */
+  var target=new Date('2026-11-21T20:52:00+05:30').getTime();
+  function pad(n){return n<10?'0'+n:''+n}
+  function tick(){
+    var d=target-Date.now();
+    if(d<=0){document.getElementById('cds').hidden=true;document.getElementById('cd-label').textContent='The celebrations have begun';return}
+    document.getElementById('cd-d').textContent=Math.floor(d/864e5);
+    document.getElementById('cd-h').textContent=pad(Math.floor(d%864e5/36e5));
+    document.getElementById('cd-m').textContent=pad(Math.floor(d%36e5/6e4));
+  }
+  tick();setInterval(tick,30000);
+
+  /* ---- scroll reveal (content below the fold only) ---- */
+  var reduce=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if('IntersectionObserver' in window&&!reduce){
+    var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.remove('hide');io.unobserve(e.target)}})},{threshold:.12});
+    document.querySelectorAll('.rv').forEach(function(n){
+      var r=n.getBoundingClientRect();
+      if(r.top>window.innerHeight*.95){n.classList.add('hide');io.observe(n)}
+    });
+  }
+})();
+</script>
+
+</body>
+</html>
