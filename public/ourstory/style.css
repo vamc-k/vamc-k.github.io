@@ -350,3 +350,11 @@ svg{display:block}
 #finale .mount,#finale .tower.fin{display:none}
 .credit{color:#a8794a}
 @media (max-aspect-ratio:1/1){#finale .stage{background-position:50% bottom}}
+
+/* rsvp: soft floral backdrop (replaces maroon curtains) */
+#rsvp .stage{background:#fdf2ea url(assets/rsvp-soft.jpg) center/cover no-repeat}
+#rsvp .arch.med{top:30vh;width:min(34vw,560px);height:66vh;min-width:250px}
+#rsvp .slide{top:4%;padding:0 3%;color:#8a6f4c}
+#rsvp .slide .script{color:#b98a3e}
+#rsvp .btn.maroon{background:linear-gradient(#e7a3b4,#d98099);color:#fff;border:1px solid #f3c6d1;box-shadow:0 8px 20px rgba(200,110,135,.35)}
+@media (max-aspect-ratio:1/1){#rsvp .arch.med{top:26vh;width:62vw;height:70vh}#rsvp .slide{top:6%}}
