@@ -1,29 +1,30 @@
 import React from 'react';
-import { Img, staticFile, useCurrentFrame } from 'remotion';
 import { Seq } from './Seq';
+import { useF } from './time';
+import { cin, out, pin } from './fonts';
 import { E, seg, lerp } from './lib';
 
-// blur-slide: y 40->0 + blur 10->0 + opacity on one outCubic per line, staggered; subtitle follows early.
-const PARTS = [
-  { k: 'h1a', x: 14.78, y: 321.72, w: 510.44, h: 70.88, at: 6 },
-  { k: 'weds', x: 250.8, y: 396.9, w: 38.4, h: 11, at: 16 },
-  { k: 'h1b', x: 109.75, y: 412.22, w: 320.5, h: 70.88, at: 20 },
-  { k: 'sub', x: 153.23, y: 526.28, w: 233.5, h: 18, at: 34 },
+// Opening: the page's own temple screen (maroon edges, gold-framed couple photo, towers rising),
+// names set in the page's gold Cinzel under the photo with the blur-slide reveal.
+const gold: React.CSSProperties = {
+  background: 'linear-gradient(180deg,#d9a940 0%,#a8741e 100%)', WebkitBackgroundClip: 'text', backgroundClip: 'text', color: 'transparent',
+};
+const LINES: { at: number; y: number; node: React.ReactNode }[] = [
+  { at: 50, y: 815, node: <div style={{ ...gold, fontFamily: cin, fontSize: 88, letterSpacing: '0.05em', lineHeight: 1 }}>VAMSI KRISHNA</div> },
+  { at: 60, y: 912, node: <div style={{ fontFamily: pin, fontSize: 70, color: '#8f1a2b', lineHeight: 1 }}>weds</div> },
+  { at: 66, y: 1010, node: <div style={{ ...gold, fontFamily: cin, fontSize: 88, letterSpacing: '0.05em', lineHeight: 1 }}>MOUNIKA</div> },
+  { at: 84, y: 1150, node: <div style={{ fontFamily: out, fontSize: 27, letterSpacing: '0.36em', color: '#7d1526', lineHeight: 1, paddingLeft: '0.36em' }}>ARE GETTING MARRIED</div> },
 ];
 export const Hero: React.FC = () => {
-  const f = useCurrentFrame();
-  const out = seg(f, 80, 106, E.inOutCubic);
+  const f = useF();
   return (
     <div style={{ position: 'absolute', inset: 0 }}>
-      <Seq name="hero" idx={f} max={149} />
-      {PARTS.map((p) => {
-        const t = seg(f, p.at, p.at + 26, E.outCubic);
+      <Seq name="opening" idx={f * 1.4} max={99} />
+      {LINES.map((l, i) => {
+        const t = seg(f, l.at, l.at + 26, E.outCubic);
         return (
-          <Img key={p.k} src={staticFile(`title/${p.k}.png`)} style={{
-            position: 'absolute', left: p.x * 2, top: p.y * 2, width: p.w * 2, height: p.h * 2,
-            opacity: t * (1 - out), filter: `blur(${(1 - t) * 10}px)`,
-            transform: `translateY(${lerp(t, 40, 0) - out * 300}px)`,
-          }} />
+          <div key={i} style={{ position: 'absolute', left: 0, right: 0, top: l.y, display: 'flex', justifyContent: 'center',
+            opacity: t, filter: `blur(${(1 - t) * 10}px)`, transform: `translateY(${lerp(t, 40, 0)}px)` }}>{l.node}</div>
         );
       })}
     </div>

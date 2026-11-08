@@ -1,5 +1,6 @@
 import numpy as np, wave, subprocess, sys
-SR=44100; BPM=120; BEAT=60/BPM; DUR=32.0
+SPEED=float(sys.argv[2]) if len(sys.argv)>2 else 1.0
+SR=44100; BPM=120*SPEED; BEAT=60/BPM; DUR=32.0/SPEED
 N=int(SR*DUR); L=np.zeros(N); R=np.zeros(N)
 rng=np.random.default_rng(7)
 def add(sig,t0,pan=0.0,gain=1.0):
@@ -72,7 +73,7 @@ def tick(dur=0.06):
     return n*np.exp(-np.arange(len(n))/SR/0.012)
 for b in range(int(DUR/(BEAT*4))):
     t0=b*4*BEAT
-    if t0<3.9: continue
+    if t0<3.9/SPEED: continue
     add(thump(),t0,0,0.30); add(thump(80,0.3),t0+2.5*BEAT,0,0.14)
     for e in range(8):
         add(tick(),t0+e*BEAT*0.5,0.2 if e%2 else -0.2,0.035 if e%2==0 else 0.02)

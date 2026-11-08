@@ -1,5 +1,6 @@
 import React from 'react';
-import { Img, staticFile, useCurrentFrame } from 'remotion';
+import { Img, staticFile, } from 'remotion';
+import { useF } from './time';
 import { E, seg, lerp, EVENTS_T } from './lib';
 
 // card-stack: each real event card springs up from below (stagger long enough to read it),
@@ -8,7 +9,7 @@ const CARD = { x: 136.33 * 2, y: 342.7 * 2, w: 535.66, h: 968.47 };
 const PILE_ROT = [-4.5, 3.5, -3, 2];
 const N = 4;
 export const Events: React.FC = () => {
-  const f = useCurrentFrame();
+  const f = useF();
   const fan = seg(f, EVENTS_T.fan[0], EVENTS_T.fan[1], E.inOutCubic);
   const lift = seg(f, EVENTS_T.lift[0], EVENTS_T.lift[1], E.outCubic);
   return (

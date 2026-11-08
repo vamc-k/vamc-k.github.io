@@ -1,5 +1,6 @@
 import React from 'react';
-import { Easing, Img, interpolate, staticFile, useCurrentFrame } from 'remotion';
+import { Easing, Img, interpolate, staticFile, } from 'remotion';
+import { useF } from './time';
 import { rand, seg } from './lib';
 
 // spotlight-hero-card, adapted: a roving spotlight locks onto the couple, the camera swings to a
@@ -14,7 +15,7 @@ const C = (f: number, a: number[], b: number[], ease = Easing.linear) =>
   interpolate(f, a, b, { extrapolateLeft: 'clamp', extrapolateRight: 'clamp', easing: ease });
 
 export const Couple: React.FC = () => {
-  const f = useCurrentFrame();
+  const f = useF();
   const macroIn = C(f, [0, 8], [0, 1], Easing.bezier(0.3, 0, 0.2, 1));
   // camera
   const kf = [0, 32, 48, 148];

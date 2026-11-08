@@ -1,5 +1,6 @@
 import React from 'react';
-import { AbsoluteFill, Composition, Sequence, useCurrentFrame } from 'remotion';
+import { AbsoluteFill, Composition, useCurrentFrame } from 'remotion';
+import { At, Clock, useF } from './time';
 import { Hero } from './Hero';
 import { Doors } from './Doors';
 import { Events } from './Events';
@@ -18,8 +19,9 @@ const fanClip = (theta: number) => {
 };
 const dissolve = (f: number, a: number, b: number) => seg(f, a, b, E.inOutCubic);
 
-const Invitation: React.FC<{ bgm?: boolean }> = ({ bgm = true }) => {
-  const f = useCurrentFrame();
+type Props = { bgm: boolean; speed: number };
+const Scene: React.FC = () => {
+  const f = useF();
   const S = SHOTS;
   // clock-wipe: venue -> "Join us". Linear sweep (radar feel); mask is removed once complete.
   const theta = seg(f, WIPE.from, WIPE.to) * 360;
@@ -35,17 +37,17 @@ const Invitation: React.FC<{ bgm?: boolean }> = ({ bgm = true }) => {
       {/* 1-2: hero -> invite (barn-door) */}
       {f < 270 && (
         <AbsoluteFill style={{ opacity: inviteOp }}>
-          <Sequence from={S.invite.from} durationInFrames={S.invite.dur} layout="none">
+          <At from={S.invite.from}>
             <Seq name="invite" idx={(f - S.invite.from) * 1.15} max={149} style={{ transform: `scale(${1 + 0.035 * seg(f, 255, 269)})` }} />
-          </Sequence>
+          </At>
         </AbsoluteFill>
       )}
       {f < 120 && <Hero />}
       {f >= 120 && f < 150 && <Doors f={f - DOORS.from}><Hero /></Doors>}
       {/* 3 events */}
-      {f >= 255 && f < 506 && <AbsoluteFill style={{ opacity: eventsOp }}><Sequence from={S.events.from} layout="none"><Events /></Sequence></AbsoluteFill>}
+      {f >= 255 && f < 506 && <AbsoluteFill style={{ opacity: eventsOp }}><At from={S.events.from}><Events /></At></AbsoluteFill>}
       {/* 4 couple */}
-      {f >= 491 && f < 641 && <AbsoluteFill style={{ opacity: coupleOp }}><Sequence from={S.couple.from} layout="none"><Couple /></Sequence></AbsoluteFill>}
+      {f >= 491 && f < 641 && <AbsoluteFill style={{ opacity: coupleOp }}><At from={S.couple.from}><Couple /></At></AbsoluteFill>}
       {/* 5 temple -> join us */}
       {f >= 626 && f < 800 && (
         <AbsoluteFill style={{ opacity: f < 640 ? dissolve(f, 626, 640) : 1 - dissolve(f, 778, 792) }}>
@@ -66,12 +68,23 @@ const Invitation: React.FC<{ bgm?: boolean }> = ({ bgm = true }) => {
         </AbsoluteFill>
       )}
       {/* 6 finale */}
-      {f >= 778 && <AbsoluteFill style={{ opacity: finaleOp }}><Sequence from={S.finale.from} layout="none"><Finale /></Sequence></AbsoluteFill>}
-      <Sfx bgm={bgm} />
+      {f >= 778 && <AbsoluteFill style={{ opacity: finaleOp }}><At from={S.finale.from}><Finale /></At></AbsoluteFill>}
+    </AbsoluteFill>
+  );
+};
+
+const Invitation: React.FC<Props> = ({ bgm, speed }) => {
+  const real = useCurrentFrame();
+  return (
+    <AbsoluteFill>
+      <Clock f={real * speed}><Scene /></Clock>
+      <Sfx bgm={bgm} speed={speed} />
     </AbsoluteFill>
   );
 };
 
 export const Root: React.FC = () => (
-  <Composition id="Invitation" component={Invitation} durationInFrames={TOTAL} fps={30} width={1080} height={1920} defaultProps={{ bgm: true }} />
+  <Composition id="Invitation" component={Invitation} durationInFrames={TOTAL} fps={30} width={1080} height={1920}
+    defaultProps={{ bgm: true, speed: 0.66 }}
+    calculateMetadata={({ props }) => ({ durationInFrames: Math.round(TOTAL / props.speed) })} />
 );

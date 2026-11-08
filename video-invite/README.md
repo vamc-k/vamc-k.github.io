@@ -7,7 +7,7 @@ Built from the live `/ourstory` page, rendered with Remotion.
    then convert `raw/<scene>/*.png` to JPEG in `public/seq/<scene>/` and copy the stills into `public/{title,events,couple}`.
 3. `npm install`, then
    - with music: `npx remotion render src/index.ts Invitation out/invite-bgm.mp4`
-   - without music: `npx remotion render src/index.ts Invitation out/invite-nobgm.mp4 --props=props-nobgm.json`
+   - without music: `npx remotion render src/index.ts Invitation out/invite-nobgm.mp4 --props=props-nobgm-066.json (speed is a prop: 1, 0.66 or 0.5)`
 
 `src/lib.ts` holds the single shot timeline; `src/Sfx.tsx` holds the sound-effect pin table (frames are relative to each shot).
-The background music (`public/audio/bgm-bhoopali.mp3`) is synthesised by `make_bgm.py`; swap it for any track.
+The background music (`public/audio/bgm-<speed%>.mp3`) is synthesised by `make_bgm.py`; swap it for any track.

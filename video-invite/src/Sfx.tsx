@@ -6,7 +6,8 @@ import { DOORS, EVENTS_T, NAME_DRAW, SHOTS, TOTAL, WIPE } from './lib';
 type Pin = { from: number; src: string; volume: number; dur?: number; note: string };
 const ev = SHOTS.events.from, cp = SHOTS.couple.from, fn = NAME_DRAW.to;
 export const PINS: Pin[] = [
-  { from: SHOTS.hero.from + 4,  src: 'light-aura', volume: 0.30, dur: 70, note: 'title blur-slide resolves' },
+  { from: SHOTS.hero.from + 3,  src: 'transition-soft', volume: 0.30, note: 'photo frame drops in' },
+  { from: SHOTS.hero.from + 50, src: 'light-aura', volume: 0.30, dur: 70, note: 'names blur-slide in' },
   { from: DOORS.from - 2,       src: 'swoosh-slow', volume: 0.32, dur: 46, note: 'barn-door opens' },
   { from: SHOTS.invite.from + 16, src: 'sparkle-touch', volume: 0.22, note: '"Invite" settles' },
   { from: SHOTS.invite.from + 88, src: 'sparkle-touch', volume: 0.28, note: 'names appear' },
@@ -28,16 +29,17 @@ export const PINS: Pin[] = [
   { from: fn + 4,   src: 'sparkle', volume: 0.34, dur: 90, note: 'afterglow' },
 ];
 
-export const Sfx: React.FC<{ bgm: boolean }> = ({ bgm }) => {
+export const Sfx: React.FC<{ bgm: boolean; speed: number }> = ({ bgm, speed }) => {
   const f = useCurrentFrame();
+  const total = Math.round(TOTAL / speed);
   return (
     <>
       {bgm && (
-        <Audio src={staticFile('audio/bgm-bhoopali.mp3')}
-          volume={interpolate(f, [0, 24, TOTAL - 45, TOTAL - 1], [0, 0.5, 0.5, 0], { extrapolateLeft: 'clamp', extrapolateRight: 'clamp' })} />
+        <Audio src={staticFile(`audio/bgm-${Math.round(speed * 100)}.mp3`)}
+          volume={interpolate(f, [0, 24, total - 60, total - 1], [0, 0.5, 0.5, 0], { extrapolateLeft: 'clamp', extrapolateRight: 'clamp' })} />
       )}
       {PINS.map((p, i) => (
-        <Sequence key={i} from={p.from} durationInFrames={p.dur ?? 90}>
+        <Sequence key={i} from={Math.round(p.from / speed)} durationInFrames={Math.round((p.dur ?? 90) / speed)}>
           <Audio src={staticFile(`audio/sfx/${p.src}.mp3`)} volume={p.volume} />
         </Sequence>
       ))}

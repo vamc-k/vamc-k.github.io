@@ -87,6 +87,7 @@ const HIDE = `
   }
   await seq('couple', 'couple', 0.08, 0.95, 150);
   await seq('temple', 'temple', 0.14, 0.86, 80);
+  await seq('opening', 'temple', 0.0, 0.27, 100);
   await seq('rsvp', 'rsvp', 0.0, 0.28, 120);
   await seq('finale', 'finale', 0.05, 0.95, 135, '.credit{visibility:hidden!important}', 400);
   await b.close();

@@ -1,13 +1,9 @@
 import React from 'react';
-import { interpolate, useCurrentFrame } from 'remotion';
-import { loadFont as loadCinzel } from '@remotion/google-fonts/Cinzel';
-import { loadFont as loadOutfit } from '@remotion/google-fonts/Outfit';
-import { loadFont as loadPinyon } from '@remotion/google-fonts/PinyonScript';
+import { interpolate, } from 'remotion';
+import { useF } from './time';
+import { cin, out, pin } from './fonts';
 import { Seq } from './Seq';
 import { NAME_DRAW, SHOTS } from './lib';
-const cin = loadCinzel('normal', { weights: ['500'] }).fontFamily;
-const out = loadOutfit('normal', { weights: ['400'] }).fontFamily;
-const pin = loadPinyon('normal', { weights: ['400'] }).fontFamily;
 
 // letterspace-materialize: every letter shares ONE progress -> same start frame, same finish frame,
 // continuous stroke growth (pathLength 1 -> 0 dashoffset), easeInOut, big letter-spacing, then a held lockup.
@@ -29,7 +25,7 @@ const LINES = [{ txt: ['VAMSI', 'KRISHNA'], y: 250 }, { txt: ['MOUNIKA'], y: 520
 const INK = '#8f1a2b';
 
 export const Finale: React.FC = () => {
-  const f = useCurrentFrame() + SHOTS.finale.from;
+  const f = useF() + SHOTS.finale.from;
   const START = NAME_DRAW.from, DUR = NAME_DRAW.to - NAME_DRAW.from;
   const p = interpolate(f, [START, START + DUR], [0, 1], { extrapolateLeft: 'clamp', extrapolateRight: 'clamp' });
   const e = p < 0.5 ? 2 * p * p : 1 - Math.pow(-2 * p + 2, 2) / 2;
