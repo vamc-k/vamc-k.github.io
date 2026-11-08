@@ -521,3 +521,31 @@ svg{display:block}
   #rsvp .arch.med{top:24vh;height:50vh;width:62vw}
   #rsvp .slide{padding:0 2%}
 }
+
+/* ===================== EVENTS · portrait / mobile (final, single source of truth) =====================
+   Everything is sized from the frame artwork itself, so it stays aligned at any phone, tablet or
+   "desktop site" width. Frame art clear area (measured): left 22.7%, right 22.6%, top 28.5%, bottom 13.3%. */
+@media (max-aspect-ratio:1/1){
+  #events .events-intro{top:5vh;padding:0 4vw}
+  #events .events-intro .script{display:block;white-space:nowrap;font-size:min(4.3vw,2.9vh);line-height:1.2;letter-spacing:.05em}
+  #events .ev-frame{
+    inset:auto;left:0;right:0;margin:0 auto;top:11vh;
+    width:min(96vw,51vh);height:auto;aspect-ratio:765/1300;
+    padding:0;border:0;border-radius:0;box-shadow:none;
+    background:url(assets/card-frame-m.png) center/100% 100% no-repeat}
+  #events .ev-frame::before{display:none}
+  #events .ev-card{
+    position:absolute;left:22.7%;right:22.6%;top:28.5%;bottom:13.3%;height:auto;
+    display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;
+    gap:2.6cqw;padding-bottom:7cqw;container-type:inline-size}
+  #events .ev-photo{width:100%;max-height:none;aspect-ratio:16/10;margin:0;flex:none;border-width:.8cqw;border-radius:2.4cqw}
+  #events .ev-text{display:flex;flex-direction:column;align-items:center;width:100%}
+  #events .ev-text h3{font-size:11.5cqw;line-height:1.1;margin:0}
+  #events .meta{display:flex;flex-direction:column;align-items:center;gap:.6cqw;margin:2.2cqw 0 1.6cqw;font-size:4.9cqw;line-height:1.35}
+  #events .meta li{margin:0;padding:0}
+  #events .meta li::before{display:none}
+  #events .meta li:first-child{font-weight:600;color:#3f2a14}
+  #events .ev-text p{font-size:4.9cqw;line-height:1.4;margin:0 0 3cqw;max-width:none}
+  #events .btn{font-size:5cqw;padding:.7em 1.5em;white-space:nowrap}
+  #events .dots{bottom:0}
+}
