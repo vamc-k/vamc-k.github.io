@@ -248,7 +248,7 @@ const U = {
     $('#heroTitle').style.opacity = 1 - seg(p, .05, .3);
     $('#heroTitle').style.transform = `translateY(${-seg(p, 0, .3) * 18}vh)`;
     const tw = $('#heroTower');
-    tw.style.transform = `translate(-50%, ${lerp(78, -4, t)}%) scale(${lerp(.55, 2.3, t)})`;
+    tw.style.transform = `translate(-50%, ${lerp(30, -4, t)}%) scale(${lerp(.55, 2.3, t)})`;
     const tr = seg(p, .3, .65);
     $('#treeL').style.opacity = tr; $('#treeR').style.opacity = tr;
     $('#treeL').style.transform = `translateX(${(1 - tr) * -20}vw)`;
@@ -361,6 +361,7 @@ function tick() {
     if (!tickFirst) el.animate([{ transform: 'rotateX(-90deg)', opacity: 0 }, { transform: 'rotateX(0deg)', opacity: 1 }], { duration: 420, easing: 'cubic-bezier(.2,.8,.3,1)' });
   };
   set('cd', f(day)); set('ch', f(h)); set('cm', f(m)); set('cs', f(s));
+  set('hd', f(day)); set('hh', f(h)); set('hm', f(m)); set('hs', f(s));
   tickFirst = false;
 }
 tick(); setInterval(tick, 1000);

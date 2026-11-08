@@ -421,3 +421,11 @@ svg{display:block}
 @keyframes shimmer{0%,55%{background-position:150% 0,0 0}100%{background-position:-60% 0,0 0}}
 
 @media (prefers-reduced-motion:reduce){.gold-name,.flame,.tap-hint.show{animation:none}.tap-hint.show{opacity:.9}}
+
+
+/* hero countdown: glass boxes */
+.hero-timer{margin-top:clamp(18px,3vw,34px);gap:min(1.6vw,12px)}
+.hero-timer div{width:min(11vw,76px);background:rgba(255,255,255,.2);border:.5px solid rgba(255,255,255,.55);box-shadow:none;-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px);border-radius:16px}
+.hero-timer b{color:#fff;font-family:'Outfit',sans-serif;font-weight:400;font-size:clamp(20px,2.6vw,30px)}
+.hero-timer span{color:rgba(255,255,255,.92)}
+@media (max-width:760px){.hero-timer div{width:19vw;max-width:76px}.hero-timer b{font-size:6.4vw}.hero-timer{gap:2.4vw}}
