@@ -218,7 +218,7 @@ function photoSVG(kind) {
 var EVENTS = [
   { t: 'Haldi', d: '20 November 2026', tm: '9:00 AM', p: 'Raynah Garden, Vijayawada', desc: 'A bright, joyful morning of turmeric, laughter and blessings.', k: 'haldi', q: 'https://maps.app.goo.gl/NDzBPQgFcXXcCcyJA?g_st=ic' },
   { t: 'Pellikoduku', d: '21 November 2026', tm: '9:00 AM', p: 'Navya Meadows, Penamaluru', desc: 'The groom-to-be is blessed by family before the big day.', k: 'pelli', q: 'https://maps.app.goo.gl/MCpLRMx6URGADayY6?g_st=ic' },
-  { t: 'Wedding', d: '21 November 2026', tm: '8:52 PM', p: 'Anne Aruna Kalyana Mandapam, Kanuru', desc: 'Sumuhurtham at 8:52 PM. Dinner from 8:00 PM onwards at the venue.', k: 'wedding', q: 'https://maps.app.goo.gl/4MRR5SQ5H8LZ5GY97?g_st=ic' },
+  { t: 'Wedding', d: '21 November 2026', tm: '8:52 PM', p: 'Anne Aruna Kalyana Mandapam, Kanuru', desc: 'Sumuhurtham at 8:52 PM. Dinner from 8:00 PM onwards at the venue.', k: 'wedding', muh: 'Karthika Suddha Dwadasi · Revati Nakshatram · Mithuna Lagnam', q: 'https://maps.app.goo.gl/4MRR5SQ5H8LZ5GY97?g_st=ic' },
   { t: 'Vratam', d: '22 November 2026', tm: '9:00 AM', p: 'Navya Meadows, Penamaluru', desc: 'A sacred ritual to bless the newly-wed couple.', k: 'vratam', q: 'https://maps.app.goo.gl/MCpLRMx6URGADayY6?g_st=ic' },
 ];
 let evShown = -1;
@@ -229,7 +229,7 @@ function showEvent(i) {
   card.style.opacity = 0; card.style.transform = 'translateY(10px)';
   setTimeout(() => {
     $('#evTitle').textContent = e.t; $('#evDate').textContent = e.d; $('#evTime').textContent = e.tm;
-    $('#evPlace').textContent = e.p; $('#evDesc').textContent = e.desc; $('#evPhoto').innerHTML = photoSVG(e.k); $('#evCard .btn').href = e.q;
+    $('#evPlace').textContent = e.p; $('#evMuh').textContent = e.muh || ''; $('#evMuh').style.display = e.muh ? '' : 'none'; $('#evDesc').textContent = e.desc; $('#evPhoto').innerHTML = photoSVG(e.k); $('#evCard .btn').href = e.q;
     card.style.opacity = 1; card.style.transform = 'none';
   }, 220);
   $$('#evDots i').forEach((d, k) => d.classList.toggle('on', k === i));
@@ -544,3 +544,31 @@ document.addEventListener('click', e => {
     ], { duration: rr(900, 1700), easing: 'cubic-bezier(.2,.7,.3,1)', fill: 'forwards' }).onfinish = () => h.remove();
   }
 }, true);
+
+
+/* =====================  CARD-INSPIRED: footprints + saptapadi  ===================== */
+const FOOT = (c = '#a3202f') => `<svg viewBox="0 0 72 52" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="${c}" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round">
+  <g><path d="M14 44c-5-5-6-14-1-22 4-6 11-6 13 1 2 8-1 17-6 22-2 2-4 2-6-1z"/><circle cx="12" cy="12" r="2.4"/><circle cx="19" cy="8" r="2.4"/><circle cx="26" cy="9" r="2.2"/><circle cx="32" cy="13" r="2"/></g>
+  <g transform="translate(36 0)"><path d="M14 44c-5-5-6-14-1-22 4-6 11-6 13 1 2 8-1 17-6 22-2 2-4 2-6-1z"/><circle cx="12" cy="12" r="2.4"/><circle cx="19" cy="8" r="2.4"/><circle cx="26" cy="9" r="2.2"/><circle cx="32" cy="13" r="2"/></g></svg>`;
+
+const STEPS = [
+  ['to nourish each other', 'పరస్పరం ఆరోగ్యాన్ని కాపాడుకుంటూ…'],
+  ['to grow together in strength', 'సమన్వయంతో శక్తిని పుంజుకుంటూ…'],
+  ['to preserve our wealth', 'సంపదను పరిరక్షించుకుంటూ…'],
+  ['to share our joys and sorrows', 'సుఖ దుఃఖాలను పంచుకుంటూ…'],
+  ['to care for our children', 'సంతాన సంరక్షణ చూసుకుంటూ…'],
+  ['to remain friends, lifelong', 'ఆజన్మాంతం స్నేహ బంధాన్ని వీడకుండా…'],
+  ['to be together forever', 'సర్వదా ఏకమై ఉంటూ…'],
+];
+(function () {
+  const list = document.getElementById('stepsList'); if (!list) return;
+  list.innerHTML = STEPS.map((t, i) => `<li class="step" style="--i:${i}"><span class="step-n">${i + 1}</span><span class="step-foot">${FOOT()}</span><span class="step-txt"><b>${t[0]}</b><em lang="te">${t[1]}</em></span></li>`).join('');
+  const trail = document.getElementById('trail');
+  if (trail) trail.innerHTML = Array.from({ length: 7 }, (_, i) => `<i style="--i:${i}">${FOOT()}</i>`).join('');
+})();
+U.steps = function (p) {
+  const head = $('#stepsHead'); if (!head) return;
+  head.style.opacity = seg(p, 0, .08) * (1 - seg(p, .96, 1));
+  $$('#stepsList .step').forEach((el, i) => el.classList.toggle('on', p > .1 + i * .105));
+  $('#stepsList').style.opacity = 1 - seg(p, .97, 1);
+};
