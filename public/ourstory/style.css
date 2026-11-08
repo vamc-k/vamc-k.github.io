@@ -372,3 +372,7 @@ svg{display:block}
 @media (max-aspect-ratio:1/1){.ib .parents{font-size:13px}}
 .ib.b{top:55%}
 @media (max-aspect-ratio:1/1){.ib.b{top:62%}}
+
+/* finale: cards are tappable */
+.polaroids.fall .pol{pointer-events:auto;cursor:pointer;transition:filter .2s}
+.polaroids.fall .pol:hover{filter:brightness(1.08)}

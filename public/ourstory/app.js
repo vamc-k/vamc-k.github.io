@@ -375,27 +375,66 @@ $('#magic').addEventListener('click', () => {
   setTimeout(() => $('#finale').scrollIntoView({ behavior: 'smooth' }), 1300);
 });
 
-/* falling polaroids in the finale: random spot, size, speed, tilt and sway on every drop */
+/* falling polaroids in the finale: random spot, size, speed, tilt and sway on every drop.
+   Tap a card and it pops into 4 more cards (random photos from the same 9) that join the fall. */
 (function () {
-  const box = $('#fall'), kinds = ['p1', 'p2', 'p3', 'p4', 'p5', 'p6', 'p7', 'p8', 'p2'];
+  const box = $('#fall'), kinds = ['p1', 'p2', 'p3', 'p4', 'p5', 'p6', 'p7', 'p8', 'p2']; // the same 9 photos
   const rnd = (a, b) => a + Math.random() * (b - a);
+  const MAX_EXTRA = 28;
+  const sizeFor = () => rnd(9, 15) * (innerWidth < 700 ? 1.7 : 1);
+
+  // regular cards: respawn forever at a fresh random spot
   function drop(el, first) {
-    const tall = innerHeight, wide = innerWidth;
-    const size = rnd(9, 15) * (wide < 700 ? 1.7 : 1);          // vh-ish card width
-    const x = rnd(2, 90);                                       // % from left
-    const sway = rnd(-8, 8) * (wide / 100);                     // px drift sideways
+    const size = sizeFor(), wide = innerWidth;
+    const sway = rnd(-8, 8) * (wide / 100);
     const r0 = rnd(-28, 28), r1 = r0 + rnd(-40, 40);
     const dur = rnd(9000, 17000);
-    el.style.left = x + '%';
+    el.style.left = rnd(2, 90) + '%'; el.style.top = '';
     el.style.width = `min(${size}vh, ${size * 1.3}vw)`;
     el.style.zIndex = Math.round(size);
-    const startY = first ? rnd(-10, 100) : -25;                // first pass: spread over the screen
+    const startY = first ? rnd(-10, 100) : -25;
     const anim = el.animate([
       { transform: `translate(0, ${startY}vh) rotate(${r0}deg)`, opacity: first ? 1 : 0 },
       { opacity: 1, offset: .06 },
       { transform: `translate(${sway}px, 125vh) rotate(${r1}deg)`, opacity: 1 }
-    ], { duration: first ? dur * (1.25 - startY / 100 * 1.0) : dur, easing: 'linear', fill: 'forwards', delay: first ? 0 : rnd(0, 6000) });
+    ], { duration: first ? dur * (1.25 - startY / 100) : dur, easing: 'linear', fill: 'forwards', delay: first ? 0 : rnd(0, 6000) });
     anim.onfinish = () => { anim.cancel(); drop(el, false); };
   }
+
+  // extra cards: burst out of the tapped card, then fall once and disappear
+  function burst(cx, cy) {
+    for (let i = 0; i < 4; i++) {
+      const el = polaroid(kinds[Math.floor(Math.random() * kinds.length)]);
+      el.classList.add('extra');
+      const size = sizeFor();
+      el.style.width = `min(${size}vh, ${size * 1.3}vw)`;
+      el.style.zIndex = 50 + Math.round(size);
+      el.style.left = cx + 'px'; el.style.top = cy + 'px';
+      box.appendChild(el);
+      const ang = (i / 4) * Math.PI * 2 + rnd(-.5, .5), dist = rnd(60, 150);
+      const bx = Math.cos(ang) * dist, by = Math.sin(ang) * dist - 30;
+      const r0 = rnd(-35, 35), sway = rnd(-6, 6) * (innerWidth / 100);
+      const fall = innerHeight - cy + 220;
+      const dur = rnd(5500, 9000);
+      const a = el.animate([
+        { transform: 'translate(-50%,-50%) scale(.3) rotate(0deg)', opacity: 0 },
+        { transform: `translate(calc(-50% + ${bx}px), calc(-50% + ${by}px)) scale(1.08) rotate(${r0}deg)`, opacity: 1, offset: .08 },
+        { transform: `translate(calc(-50% + ${bx + sway}px), calc(-50% + ${by + fall}px)) scale(1) rotate(${r0 + rnd(-30, 30)}deg)`, opacity: 1 }
+      ], { duration: dur, easing: 'cubic-bezier(.25,.1,.4,1)', fill: 'forwards' });
+      a.onfinish = () => el.remove();
+    }
+    // keep the page light: drop the oldest extras if too many
+    const extras = box.querySelectorAll('.extra');
+    for (let i = 0; i < extras.length - MAX_EXTRA; i++) extras[i].remove();
+  }
+
+  box.addEventListener('click', e => {
+    const card = e.target.closest('.pol'); if (!card) return;
+    const r = card.getBoundingClientRect(), b = box.getBoundingClientRect();
+    burst(r.left - b.left + r.width / 2, r.top - b.top + r.height / 2);
+    // little pop on the tapped card
+    card.animate([{ filter: 'brightness(1.25)' }, { filter: 'brightness(1)' }], { duration: 250 });
+  });
+
   kinds.forEach(k => { const el = polaroid(k); box.appendChild(el); drop(el, true); });
 })();
