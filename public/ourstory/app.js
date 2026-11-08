@@ -375,13 +375,27 @@ $('#magic').addEventListener('click', () => {
   setTimeout(() => $('#finale').scrollIntoView({ behavior: 'smooth' }), 1300);
 });
 
-/* falling polaroids in the finale */
+/* falling polaroids in the finale: random spot, size, speed, tilt and sway on every drop */
 (function () {
-  const box = $('#fall'), kinds = ['p6', 'p2', 'p5', 'p7', 'p4'];
-  kinds.forEach((k, i) => {
-    const el = polaroid(k); el.style.left = (12 + i * 18) + '%'; el.style.width = 'min(12vh,16vw)';
-    box.appendChild(el);
-    el.animate([{ transform: `translateY(0) rotate(${-12 + i * 7}deg)` }, { transform: `translateY(120vh) rotate(${12 - i * 9}deg)` }],
-      { duration: 14000 + i * 2500, iterations: Infinity, delay: -i * 3500, easing: 'linear' });
-  });
+  const box = $('#fall'), kinds = ['p1', 'p2', 'p3', 'p4', 'p5', 'p6', 'p7', 'p8', 'p2'];
+  const rnd = (a, b) => a + Math.random() * (b - a);
+  function drop(el, first) {
+    const tall = innerHeight, wide = innerWidth;
+    const size = rnd(9, 15) * (wide < 700 ? 1.7 : 1);          // vh-ish card width
+    const x = rnd(2, 90);                                       // % from left
+    const sway = rnd(-8, 8) * (wide / 100);                     // px drift sideways
+    const r0 = rnd(-28, 28), r1 = r0 + rnd(-40, 40);
+    const dur = rnd(9000, 17000);
+    el.style.left = x + '%';
+    el.style.width = `min(${size}vh, ${size * 1.3}vw)`;
+    el.style.zIndex = Math.round(size);
+    const startY = first ? rnd(-10, 100) : -25;                // first pass: spread over the screen
+    const anim = el.animate([
+      { transform: `translate(0, ${startY}vh) rotate(${r0}deg)`, opacity: first ? 1 : 0 },
+      { opacity: 1, offset: .06 },
+      { transform: `translate(${sway}px, 125vh) rotate(${r1}deg)`, opacity: 1 }
+    ], { duration: first ? dur * (1.25 - startY / 100 * 1.0) : dur, easing: 'linear', fill: 'forwards', delay: first ? 0 : rnd(0, 6000) });
+    anim.onfinish = () => { anim.cancel(); drop(el, false); };
+  }
+  kinds.forEach(k => { const el = polaroid(k); box.appendChild(el); drop(el, true); });
 })();
