@@ -507,3 +507,17 @@ svg{display:block}
 .credit span{font-weight:600}
 
 #couple{cursor:pointer;-webkit-tap-highlight-color:transparent;touch-action:pan-y}
+
+
+/* ===== RSVP: artwork backdrop (card-inspired: marigold garlands, mango toran, kalash, rangoli) ===== */
+#rsvp .stage{background:#f3c96a url(assets/rsvp-trad.jpg) center/cover no-repeat !important}
+#rsvp .stage::before,#rsvp .stage::after{display:none}
+#rsvp .arch.med{top:25vh;height:52vh;width:min(52vw,720px);min-width:0}
+#rsvp .arch.med .arch-in{position:absolute;inset:0}
+#rsvp .slide{top:0;bottom:0;left:0;right:0;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:0 3%}
+#rsvp .slide p{margin-bottom:1.2em;max-width:34em}
+@media (max-aspect-ratio:1/1){
+  #rsvp .stage{background-image:url(assets/rsvp-trad-m.jpg) !important}
+  #rsvp .arch.med{top:24vh;height:50vh;width:62vw}
+  #rsvp .slide{padding:0 2%}
+}

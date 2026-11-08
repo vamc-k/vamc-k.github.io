@@ -218,7 +218,7 @@ function photoSVG(kind) {
 var EVENTS = [
   { t: 'Haldi', d: '20 November 2026', tm: '9:00 AM', p: 'Raynah Garden, Vijayawada', desc: 'A bright, joyful morning of turmeric, laughter and blessings.', k: 'haldi', q: 'https://maps.app.goo.gl/NDzBPQgFcXXcCcyJA?g_st=ic' },
   { t: 'Pellikoduku', d: '21 November 2026', tm: '9:00 AM', p: 'Navya Meadows, Penamaluru', desc: 'The groom-to-be is blessed by family before the big day.', k: 'pelli', q: 'https://maps.app.goo.gl/MCpLRMx6URGADayY6?g_st=ic' },
-  { t: 'Wedding', d: '21 November 2026', tm: '8:52 PM', p: 'Anne Aruna Convention, Kanuru', desc: 'The auspicious muhurtham — join us as we take our vows.', k: 'wedding', q: 'https://maps.app.goo.gl/4MRR5SQ5H8LZ5GY97?g_st=ic' },
+  { t: 'Wedding', d: '21 November 2026', tm: '8:52 PM', p: 'Anne Aruna Kalyana Mandapam, Kanuru', desc: 'Sumuhurtham at 8:52 PM. Dinner from 8:00 PM onwards at the venue.', k: 'wedding', q: 'https://maps.app.goo.gl/4MRR5SQ5H8LZ5GY97?g_st=ic' },
   { t: 'Vratam', d: '22 November 2026', tm: '9:00 AM', p: 'Navya Meadows, Penamaluru', desc: 'A sacred ritual to bless the newly-wed couple.', k: 'vratam', q: 'https://maps.app.goo.gl/MCpLRMx6URGADayY6?g_st=ic' },
 ];
 let evShown = -1;
