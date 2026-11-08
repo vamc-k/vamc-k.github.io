@@ -218,7 +218,7 @@ function photoSVG(kind) {
 var EVENTS = [
   { t: 'Haldi', d: '20 November 2026', tm: '9:00 AM', p: 'Raynah Garden, Vijayawada', desc: 'A bright, joyful morning of turmeric, laughter and blessings.', k: 'haldi', q: 'https://maps.app.goo.gl/NDzBPQgFcXXcCcyJA?g_st=ic' },
   { t: 'Pellikoduku', d: '21 November 2026', tm: '9:00 AM', p: 'Navya Meadows, Penamaluru', desc: 'The groom-to-be is blessed by family before the big day.', k: 'pelli', q: 'https://maps.app.goo.gl/MCpLRMx6URGADayY6?g_st=ic' },
-  { t: 'Wedding', d: '21 November 2026', tm: '8:52 PM', p: 'Anne Aruna Convention, Kanuru', desc: 'The auspicious muhurtham — join us as we take our vows.', k: 'wedding', q: 'https://maps.app.goo.gl/4MRR5SQ5H8LZ5GY97?g_st=ic' },
+  { t: 'Wedding', d: '21 November 2026', tm: '8:52 PM', p: 'Anne Aruna Kalyana Mandapam, Kanuru', desc: 'Sumuhurtham at 8:52 PM. Dinner from 8:00 PM onwards at the venue.', k: 'wedding', q: 'https://maps.app.goo.gl/4MRR5SQ5H8LZ5GY97?g_st=ic' },
   { t: 'Vratam', d: '22 November 2026', tm: '9:00 AM', p: 'Navya Meadows, Penamaluru', desc: 'A sacred ritual to bless the newly-wed couple.', k: 'vratam', q: 'https://maps.app.goo.gl/MCpLRMx6URGADayY6?g_st=ic' },
 ];
 let evShown = -1;
@@ -356,7 +356,7 @@ function tick() {
   const f = n => String(n).padStart(2, '0');
   const set = (id, v) => {
     const el = $('#' + id);
-    if (el.textContent === v) return;
+    if (!el || el.textContent === v) return;
     el.textContent = v;
     if (!tickFirst) el.animate([{ transform: 'rotateX(-90deg)', opacity: 0 }, { transform: 'rotateX(0deg)', opacity: 1 }], { duration: 420, easing: 'cubic-bezier(.2,.8,.3,1)' });
   };
@@ -477,10 +477,19 @@ const rr = (a, b) => a + Math.random() * (b - a);
       a.onfinish = () => el.remove();
     }
   }
-  stage.addEventListener('click', e => {
+  // Tap or click ANYWHERE in the couple section. A swipe/scroll gesture does not count as a tap.
+  const area = $('#couple') || stage;
+  let down = null;
+  area.addEventListener('pointerdown', e => { down = { x: e.clientX, y: e.clientY, t: performance.now() }; }, { passive: true });
+  area.addEventListener('pointerup', e => {
+    if (!down) return;
+    const moved = Math.hypot(e.clientX - down.x, e.clientY - down.y), dt = performance.now() - down.t;
+    down = null;
+    if (moved > 14 || dt > 700) return;
     shower(e.clientX / innerWidth);
     if (hint) { hint.dataset.done = '1'; hint.classList.remove('show'); }
   });
+  area.addEventListener('pointercancel', () => { down = null; });
 })();
 
 /* 2 · Flickering lamp glows over the mandap artwork */
