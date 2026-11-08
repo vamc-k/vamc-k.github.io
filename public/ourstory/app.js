@@ -286,6 +286,7 @@ const U = {
     const cf = ease(seg(p, .1, .5));
     $('#coupleFig').style.transform = `translate(-50%, ${lerp(100, 0, cf)}%) scale(${lerp(.6, 1, cf) + seg(p, .55, 1) * .06})`;
     $('#mandap').style.opacity = seg(p, .55, .85);
+    const hn = $('#petalHint'); if (hn) hn.classList.toggle('show', p > .62 && p < .97 && !hn.dataset.done);
     $('#goldTower').style.opacity = 1 - seg(p, .5, .75);
     $$('#paperClouds .cloud').forEach((c, i) => c.style.transform = `translate(${p * (i % 2 ? -20 : 20)}vw, ${-p * 6}vh)`);
   },
@@ -345,6 +346,7 @@ function frame() {
 requestAnimationFrame(frame);
 
 /* ---------- COUNTDOWN ---------- */
+let tickFirst = true;
 function tick() {
   let d = Math.max(0, WEDDING - new Date());
   const day = Math.floor(d / 864e5); d -= day * 864e5;
@@ -352,7 +354,14 @@ function tick() {
   const m = Math.floor(d / 6e4); d -= m * 6e4;
   const s = Math.floor(d / 1e3);
   const f = n => String(n).padStart(2, '0');
-  $('#cd').textContent = f(day); $('#ch').textContent = f(h); $('#cm').textContent = f(m); $('#cs').textContent = f(s);
+  const set = (id, v) => {
+    const el = $('#' + id);
+    if (el.textContent === v) return;
+    el.textContent = v;
+    if (!tickFirst) el.animate([{ transform: 'rotateX(-90deg)', opacity: 0 }, { transform: 'rotateX(0deg)', opacity: 1 }], { duration: 420, easing: 'cubic-bezier(.2,.8,.3,1)' });
+  };
+  set('cd', f(day)); set('ch', f(h)); set('cm', f(m)); set('cs', f(s));
+  tickFirst = false;
 }
 tick(); setInterval(tick, 1000);
 
@@ -438,3 +447,90 @@ $('#magic').addEventListener('click', () => {
 
   kinds.forEach(k => { const el = polaroid(k); box.appendChild(el); drop(el, true); });
 })();
+
+
+/* =====================  INTERACTIONS  ===================== */
+const REDUCED = matchMedia('(prefers-reduced-motion: reduce)').matches;
+const rr = (a, b) => a + Math.random() * (b - a);
+
+/* 1 · Petal shower: tap anywhere on the couple scene */
+(function () {
+  const stage = $('#coupleStage'), box = $('#petals'), hint = $('#petalHint');
+  if (!stage || !box) return;
+  function shower(cx) {
+    const n = REDUCED ? 14 : 44;
+    for (let i = 0; i < n; i++) {
+      const el = document.createElement('i');
+      el.className = 'petal ' + (Math.random() < .55 ? 'jas' : 'mar');
+      const sz = rr(10, 22);
+      el.style.width = sz + 'px'; el.style.height = sz * 1.3 + 'px';
+      el.style.left = clamp(cx * innerWidth + rr(-.35, .35) * innerWidth, 0, innerWidth) + 'px';
+      box.appendChild(el);
+      const sw1 = rr(-90, 90), sw2 = rr(-90, 90), rot = rr(180, 720) * (Math.random() < .5 ? -1 : 1);
+      const a = el.animate([
+        { transform: 'translate(0,0) rotate(0deg)', opacity: 0 },
+        { opacity: 1, offset: .08 },
+        { transform: `translate(${sw1}px, ${innerHeight * .5}px) rotate(${rot * .5}deg)`, offset: .5 },
+        { transform: `translate(${sw2}px, ${innerHeight * 1.12}px) rotate(${rot}deg)`, opacity: .9 }
+      ], { duration: rr(4200, 8200), delay: rr(0, 1600), easing: 'ease-in', fill: 'both' });
+      a.onfinish = () => el.remove();
+    }
+  }
+  stage.addEventListener('click', e => {
+    shower(e.clientX / innerWidth);
+    if (hint) { hint.dataset.done = '1'; hint.classList.remove('show'); }
+  });
+})();
+
+/* 2 · Flickering lamp glows over the mandap artwork */
+(function () {
+  const box = $('#glowBox'); if (!box) return;
+  // flame positions in the 2000x1116 artwork: [x, y, radius]
+  const flames = [[225, 448, 150], [330, 592, 100], [425, 532, 95], [1775, 448, 150], [1670, 592, 100], [1575, 528, 95], [160, 440, 80], [1850, 445, 80]];
+  flames.forEach(([x, y, r], i) => {
+    const el = document.createElement('i'); el.className = 'flame';
+    el.style.left = (x / 20) + '%'; el.style.top = (y / 11.16) + '%'; el.style.width = (r / 20) + '%';
+    el.style.setProperty('--d', rr(1.1, 2.2).toFixed(2) + 's'); el.style.setProperty('--dl', (-rr(0, 2)).toFixed(2) + 's');
+    box.appendChild(el);
+  });
+})();
+
+/* 3 · Tilt / mouse parallax (phones: gyroscope, laptops: mouse) */
+(function () {
+  if (REDUCED) return;
+  const root = document.documentElement;
+  let gx = 0, gy = 0, tx = 0, ty = 0, lx = 9, ly = 9;
+  addEventListener('pointermove', e => { if (e.pointerType === 'touch') return; gx = (e.clientX / innerWidth - .5) * 2; gy = (e.clientY / innerHeight - .5) * 2; }, { passive: true });
+  const onOri = e => { if (e.gamma == null) return; gx = clamp(e.gamma / 22, -1, 1); gy = clamp((e.beta - 50) / 22, -1, 1); };
+  if (typeof DeviceOrientationEvent !== 'undefined') {
+    if (typeof DeviceOrientationEvent.requestPermission === 'function') {
+      // iOS: needs a tap to ask permission
+      addEventListener('click', () => DeviceOrientationEvent.requestPermission().then(r => { if (r === 'granted') addEventListener('deviceorientation', onOri); }).catch(() => {}), { once: true });
+    } else addEventListener('deviceorientation', onOri);
+  }
+  (function loop() {
+    tx += (gx - tx) * .08; ty += (gy - ty) * .08;
+    if (Math.abs(tx - lx) > .002 || Math.abs(ty - ly) > .002) {
+      root.style.setProperty('--tx', tx.toFixed(3)); root.style.setProperty('--ty', ty.toFixed(3)); lx = tx; ly = ty;
+    }
+    requestAnimationFrame(loop);
+  })();
+})();
+
+/* 5 · Heart burst on RSVP buttons */
+document.addEventListener('click', e => {
+  const b = e.target.closest('#rsvp .btn'); if (!b) return;
+  const r = b.getBoundingClientRect(), x = r.left + r.width / 2, y = r.top + r.height / 2;
+  const n = REDUCED ? 6 : 16, cols = ['#e7799a', '#f2a6c0', '#d94f7a', '#f7c1d2', '#c8963a'];
+  for (let i = 0; i < n; i++) {
+    const h = document.createElement('span'); h.className = 'heart-fx'; h.textContent = '♥';
+    h.style.left = x + 'px'; h.style.top = y + 'px'; h.style.color = cols[i % cols.length]; h.style.fontSize = rr(14, 30) + 'px';
+    document.body.appendChild(h);
+    const ang = rr(-Math.PI * .95, -Math.PI * .05), dist = rr(70, 190);
+    h.animate([
+      { transform: 'translate(-50%,-50%) scale(.3)', opacity: 0 },
+      { transform: `translate(calc(-50% + ${Math.cos(ang) * dist * .6}px), calc(-50% + ${Math.sin(ang) * dist * .6}px)) scale(1.1)`, opacity: 1, offset: .35 },
+      { transform: `translate(calc(-50% + ${Math.cos(ang) * dist}px), calc(-50% + ${Math.sin(ang) * dist - 40}px)) scale(.8) rotate(${rr(-30, 30)}deg)`, opacity: 0 }
+    ], { duration: rr(900, 1700), easing: 'cubic-bezier(.2,.7,.3,1)', fill: 'forwards' }).onfinish = () => h.remove();
+  }
+}, true);

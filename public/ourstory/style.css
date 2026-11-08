@@ -376,3 +376,48 @@ svg{display:block}
 /* finale: cards are tappable */
 .polaroids.fall .pol{pointer-events:auto;cursor:pointer;transition:filter .2s}
 .polaroids.fall .pol:hover{filter:brightness(1.08)}
+
+
+/* =====================  INTERACTIONS  ===================== */
+/* petals */
+.petals{position:absolute;inset:0;pointer-events:none;z-index:9;overflow:hidden}
+.petal{position:absolute;top:-8vh;will-change:transform,opacity;border-radius:60% 40% 60% 40%/70% 60% 40% 30%}
+.petal.jas{background:radial-gradient(circle at 40% 35%,#fff,#f7f1e3 70%);box-shadow:0 0 6px rgba(255,255,255,.9),inset 0 -2px 3px rgba(220,200,160,.5)}
+.petal.mar{background:radial-gradient(circle at 40% 35%,#ffcf4a,#f59a2c 70%,#e07a18)}
+.tap-hint{position:absolute;top:5vh;left:0;right:0;text-align:center;font-size:clamp(22px,2.8vw,34px);color:#b98a3e;z-index:8;opacity:0;pointer-events:none;transition:opacity .6s;text-shadow:0 1px 8px rgba(255,255,255,.7)}
+.tap-hint.show{opacity:.9;animation:hintPulse 2.4s ease-in-out infinite}
+@keyframes hintPulse{50%{transform:translateY(-4px);opacity:.55}}
+#couple .stage{cursor:pointer}
+
+/* lamp flames */
+.glow-box{position:absolute;left:50%;bottom:0;width:max(100vw,calc(100vh*2000/1116));height:max(100vh,calc(100vw*1116/2000));transform:translateX(-50%);pointer-events:none}
+.flame{position:absolute;aspect-ratio:1;translate:-50% -50%;border-radius:50%;pointer-events:none;mix-blend-mode:screen;
+  background:radial-gradient(circle,rgba(255,226,140,.9),rgba(255,176,64,.38) 38%,transparent 70%);animation:flick var(--d,1.6s) ease-in-out infinite alternate;animation-delay:var(--dl,0s)}
+@keyframes flick{0%{opacity:.5;transform:scale(.88)}30%{opacity:1;transform:scale(1.1)}55%{opacity:.68;transform:scale(.95)}100%{opacity:.95;transform:scale(1.05)}}
+
+/* tilt / mouse parallax (individual transform properties, so they stack on the scroll animations) */
+:root{--tx:0;--ty:0}
+#heroTower{translate:calc(var(--tx)*-10px) calc(var(--ty)*-4px)}
+#heroClouds .cloud{translate:calc(var(--tx)*22px) calc(var(--ty)*10px)}
+#paperClouds .cloud{translate:calc(var(--tx)*18px) calc(var(--ty)*8px)}
+#goldTower{translate:calc(var(--tx)*-8px) calc(var(--ty)*-3px)}
+#goldL,#goldR{translate:calc(var(--tx)*-14px) 0}
+#coupleFig{translate:calc(var(--tx)*14px) calc(var(--ty)*6px)}
+#mandap{scale:1.05;translate:calc(var(--tx)*-12px) calc(var(--ty)*-6px)}
+
+/* countdown flip */
+.timer div{perspective:320px}
+.timer b{display:block;transform-origin:50% 50%;backface-visibility:hidden}
+
+/* hearts */
+.heart-fx{position:fixed;z-index:80;pointer-events:none;line-height:1;text-shadow:0 2px 8px rgba(200,80,110,.35);will-change:transform,opacity}
+
+/* gold shimmer on the names */
+.gold-name{background:
+    linear-gradient(105deg,transparent 42%,rgba(255,255,255,.95) 50%,transparent 58%) 150% 0/250% 100% no-repeat,
+    linear-gradient(#f0d070,#c8963a);
+  -webkit-background-clip:text;background-clip:text;color:transparent;animation:shimmer 6s ease-in-out infinite}
+.gold-name + .parents + .amp + .gold-name{animation-delay:.6s}
+@keyframes shimmer{0%,55%{background-position:150% 0,0 0}100%{background-position:-60% 0,0 0}}
+
+@media (prefers-reduced-motion:reduce){.gold-name,.flame,.tap-hint.show{animation:none}.tap-hint.show{opacity:.9}}
