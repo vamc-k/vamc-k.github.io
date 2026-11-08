@@ -308,8 +308,8 @@ const U = {
     const t = ease(seg(p, 0, .2));
     $('#rsvpArch').style.transform = `translateX(-50%) translateY(${(1 - t) * 100}vh)`;
     $('#gate').style.transform = `translateY(${(1 - seg(p, .5, .9)) * 60}%)`;
-    const i = p < .4 ? 0 : p < .7 ? 1 : 2;
-    [1, 2, 3].forEach((n, k) => $('#sl' + n).classList.toggle('on', k === i));
+    const i = p < .5 ? 1 : 3;
+    [1, 3].forEach(n => $('#sl' + n).classList.toggle('on', n === i));
   },
   count(p) {
     $('#countWrap').style.opacity = seg(p, 0, .15) * (1 - seg(p, .88, 1));
