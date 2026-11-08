@@ -358,3 +358,11 @@ svg{display:block}
 #rsvp .slide .script{color:#b98a3e}
 #rsvp .btn.maroon{background:linear-gradient(#e7a3b4,#d98099);color:#fff;border:1px solid #f3c6d1;box-shadow:0 8px 20px rgba(200,110,135,.35)}
 @media (max-aspect-ratio:1/1){#rsvp .arch.med{top:26vh;width:62vw;height:70vh}#rsvp .slide{top:6%}}
+
+/* rsvp portrait artwork */
+@media (max-aspect-ratio:1/1){
+  #rsvp .stage{background:#fbf1ea url(assets/rsvp-soft-m.jpg) center/cover no-repeat}
+  #rsvp .arch.med{top:25vh;width:62vw;height:56vh}
+  #rsvp .slide{top:10%}
+}
+@media (max-aspect-ratio:1/1){#rsvp .slide{padding:0 13%;font-size:14.5px}}
