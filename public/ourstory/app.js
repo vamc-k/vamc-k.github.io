@@ -356,7 +356,7 @@ function tick() {
   const f = n => String(n).padStart(2, '0');
   const set = (id, v) => {
     const el = $('#' + id);
-    if (el.textContent === v) return;
+    if (!el || el.textContent === v) return;
     el.textContent = v;
     if (!tickFirst) el.animate([{ transform: 'rotateX(-90deg)', opacity: 0 }, { transform: 'rotateX(0deg)', opacity: 1 }], { duration: 420, easing: 'cubic-bezier(.2,.8,.3,1)' });
   };
@@ -477,10 +477,19 @@ const rr = (a, b) => a + Math.random() * (b - a);
       a.onfinish = () => el.remove();
     }
   }
-  stage.addEventListener('click', e => {
+  // Tap or click ANYWHERE in the couple section. A swipe/scroll gesture does not count as a tap.
+  const area = $('#couple') || stage;
+  let down = null;
+  area.addEventListener('pointerdown', e => { down = { x: e.clientX, y: e.clientY, t: performance.now() }; }, { passive: true });
+  area.addEventListener('pointerup', e => {
+    if (!down) return;
+    const moved = Math.hypot(e.clientX - down.x, e.clientY - down.y), dt = performance.now() - down.t;
+    down = null;
+    if (moved > 14 || dt > 700) return;
     shower(e.clientX / innerWidth);
     if (hint) { hint.dataset.done = '1'; hint.classList.remove('show'); }
   });
+  area.addEventListener('pointercancel', () => { down = null; });
 })();
 
 /* 2 · Flickering lamp glows over the mandap artwork */

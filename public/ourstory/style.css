@@ -435,3 +435,75 @@ svg{display:block}
 .tower.line.m{width:min(22vh,15vw);bottom:-2vh;opacity:.95}
 .tower.line img{filter:drop-shadow(0 8px 14px rgba(140,100,30,.28))}
 @media (max-width:760px){.tower.line.l,.tower.line.r{width:min(46vw,30vh)}.tower.line.m{width:min(26vw,18vh)}}
+
+
+/* ===== RSVP: traditional look ===== */
+#rsvp .stage,
+#rsvp .stage{background:radial-gradient(ellipse at 50% 38%,#fff7dc 0%,#fbe7a8 55%,#f1c968 100%) !important}
+#rsvp .stage::before{content:"";position:absolute;inset:clamp(10px,2vw,26px);border:3px solid #9d1c2d;border-radius:4px;pointer-events:none;z-index:1;
+  box-shadow:inset 0 0 0 5px #fbe7a8,inset 0 0 0 6.5px #c8963a,0 0 0 1px #c8963a}
+#rsvp .stage::after{content:"";position:absolute;left:0;right:0;top:clamp(10px,2vw,26px);height:14px;margin:0 auto;width:min(60%,520px);pointer-events:none;z-index:1;
+  background:repeating-linear-gradient(90deg,#9d1c2d 0 10px,transparent 10px 16px);opacity:.0}
+.rsvp-title{font-family:'Cinzel Decorative','Cinzel',serif;font-weight:700;font-size:clamp(34px,5vw,64px);color:#8f1a2b;letter-spacing:.04em;line-height:1.05;margin-bottom:.35em;text-shadow:0 1px 0 rgba(255,244,200,.9)}
+.rsvp-title::after{content:"";display:block;width:84px;height:12px;margin:.45em auto 0;
+  background:radial-gradient(circle,#c8963a 0 3px,transparent 3.5px) center/12px 12px repeat-x,linear-gradient(#c8963a,#c8963a) center/100% 1px no-repeat}
+#rsvp .slide{color:#6e2a24;font-family:'Cormorant Garamond',serif;font-weight:500;font-size:clamp(14px,1.45vw,20px)}
+#rsvp .slide p{color:#6e2a24}
+#rsvp .arch.med{top:30vh;width:min(46vw,640px);height:60vh}
+#rsvp .btn.maroon{background:linear-gradient(#b3243a,#8f1a2b);color:#ffeab0;border:1px solid #e0b25a;box-shadow:0 8px 20px rgba(120,20,35,.35)}
+#rsvp .btn.heart{background:#9d1c2d;color:#ffeab0;border:1px solid #e0b25a;box-shadow:0 8px 20px rgba(120,20,35,.35)}
+@media (max-aspect-ratio:1/1){
+  #rsvp .arch.med{top:26vh;width:76vw;height:62vh}
+  #rsvp .rsvp-title{font-size:9.6vw}
+  #rsvp .slide{padding:0 4%;font-size:15px}
+}
+
+/* ===== end scene: only the magic button now ===== */
+.count-wrap{justify-content:center}
+
+/* ===== finale credit: never clipped, never covered ===== */
+.credit{z-index:200;pointer-events:none;padding:0 5vw}
+@media (max-width:760px){
+  .credit .script{font-size:8.6vw}
+  .credit span{font-size:2.7vw;letter-spacing:.12em;line-height:1.7}
+}
+
+/* ===== readability pass: deeper traditional colours (maroon / brown / deep gold) ===== */
+:root{--maroon-t:#8f1a2b;--brown-t:#5e3a16;--gold-t:#8a5a10}
+.hero-title{text-shadow:0 2px 14px rgba(15,50,140,.35)}
+
+/* invite */
+.ib{color:var(--brown-t)}
+.ib .deva{color:var(--gold-t);font-weight:600}
+.ib .tiny{opacity:1;color:var(--brown-t)}
+.ib .script.big{color:var(--maroon-t);font-size:clamp(60px,9.5vw,124px);text-shadow:0 1px 0 rgba(255,244,200,.8)}
+.ib p{font-weight:600}
+.gold-name{background:
+    linear-gradient(105deg,transparent 42%,rgba(255,255,255,.9) 50%,transparent 58%) 150% 0/250% 100% no-repeat,
+    linear-gradient(#b9831f,#7a4a0c);
+  -webkit-background-clip:text;background-clip:text;color:transparent}
+.amp{color:var(--maroon-t)}
+
+/* events */
+.events-intro span{font-family:'Cinzel Decorative','Cinzel',serif;font-weight:700;font-size:clamp(16px,2vw,26px);letter-spacing:.06em;color:var(--maroon-t);text-shadow:0 1px 0 rgba(255,246,214,.95)}
+.meta{color:#4f3a1e}
+.ev-text p{color:#4f3a1e}
+.ev-text h3{color:#3f2a14}
+
+/* couple: tap hint */
+.tap-hint{font-family:'Cinzel',serif;font-weight:600;text-transform:uppercase;letter-spacing:.32em;font-size:clamp(12px,1.25vw,16px);color:var(--maroon-t);text-shadow:0 1px 10px rgba(255,244,200,.95),0 0 2px rgba(255,244,200,.9)}
+.tap-hint.show{opacity:1;animation:hintPulse 2.4s ease-in-out infinite}
+@keyframes hintPulse{50%{transform:translateY(-4px);opacity:.78}}
+
+/* magic button */
+.magic{color:var(--maroon-t)}
+.magic:hover{color:#6e1220}
+.magic .script{font-size:clamp(32px,4.2vw,56px);text-shadow:0 1px 0 rgba(255,246,214,.9)}
+
+/* finale credit */
+.credit,.credit span{color:var(--brown-t)}
+.credit .script{color:var(--maroon-t);text-shadow:0 1px 0 rgba(255,246,214,.9)}
+.credit .script i{color:var(--gold-t)}
+.credit span{font-weight:600}
+
+#couple{cursor:pointer;-webkit-tap-highlight-color:transparent;touch-action:pan-y}
