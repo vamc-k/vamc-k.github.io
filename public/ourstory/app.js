@@ -174,9 +174,9 @@ function photoSVG(kind) {
   $('#goldL').innerHTML = '<img src="assets/tower-gold.png" alt="">';
   $('#goldR').innerHTML = '<img src="assets/tower-gold.png" alt="">';
   $('#finTower').innerHTML = '<img src="assets/tower-gold.png" alt="">';
-  $('#tL').innerHTML = gopuram(PAL.line, 7);
-  $('#tM').innerHTML = gopuram(PAL.line, 4);
-  $('#tR').innerHTML = gopuram(PAL.line, 7);
+  $('#tL').innerHTML = '<img src="assets/tower-gold.png" alt="">';
+  $('#tM').innerHTML = '<img src="assets/tower-gold.png" alt="">';
+  $('#tR').innerHTML = '<img src="assets/tower-gold.png" alt="">';
   $('#pL').innerHTML = gopuram(PAL.goldDark, 10);
   $('#pR').innerHTML = gopuram(PAL.goldDark, 10);
   $$('.tower.s').forEach(t => t.innerHTML = gopuram(PAL.line, 6));
