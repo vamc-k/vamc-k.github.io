@@ -1,0 +1,14 @@
+{
+  "_help": "Set \"enabled\": false to drop a scene, reorder the list to reorder, or point \"file\" at any 1080x1920 mp4 to replace a scene. Then run: python3 assemble.py",
+  "output": "out/invitation-assembled.mp4",
+  "music": "public/audio/bgm-66.mp3",
+  "music_volume": 0.5,
+  "scenes": [
+    { "id": "01-opening",    "enabled": true, "file": "out/scenes/01-opening.mp4",    "title": "Opening: temple frame + names" },
+    { "id": "02-invite",     "enabled": true, "file": "out/scenes/02-invite.mp4",     "title": "Invite: we cordially invite you + parents" },
+    { "id": "03-events",     "enabled": true, "file": "out/scenes/03-events.mp4",     "title": "Events: Haldi, Pellikoduku, Wedding, Vratam" },
+    { "id": "04-couple",     "enabled": true, "file": "out/scenes/04-couple.mp4",     "title": "Couple: spotlight, lift, petals" },
+    { "id": "05-venue-join", "enabled": true, "file": "out/scenes/05-venue-join.mp4", "title": "Venue to Join us (clock-wipe)" },
+    { "id": "06-finale",     "enabled": true, "file": "out/scenes/06-finale.mp4",     "title": "Finale: names + date" }
+  ]
+}

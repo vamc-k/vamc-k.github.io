@@ -29,7 +29,8 @@ export const PINS: Pin[] = [
   { from: fn + 4,   src: 'sparkle', volume: 0.34, dur: 90, note: 'afterglow' },
 ];
 
-export const Sfx: React.FC<{ bgm: boolean; speed: number }> = ({ bgm, speed }) => {
+export const Sfx: React.FC<{ bgm: boolean; speed: number; win?: readonly [number, number] }> = ({ bgm, speed, win }) => {
+  const [w0, w1] = win ?? [0, TOTAL];
   const f = useCurrentFrame();
   const total = Math.round(TOTAL / speed);
   return (
@@ -38,8 +39,8 @@ export const Sfx: React.FC<{ bgm: boolean; speed: number }> = ({ bgm, speed }) =
         <Audio src={staticFile(`audio/bgm-${Math.round(speed * 100)}.mp3`)}
           volume={interpolate(f, [0, 24, total - 60, total - 1], [0, 0.5, 0.5, 0], { extrapolateLeft: 'clamp', extrapolateRight: 'clamp' })} />
       )}
-      {PINS.map((p, i) => (
-        <Sequence key={i} from={Math.round(p.from / speed)} durationInFrames={Math.round((p.dur ?? 90) / speed)}>
+      {PINS.filter((p) => p.from >= w0 - 2 && p.from < w1).map((p, i) => (
+        <Sequence key={i} from={Math.round((p.from - w0) / speed)} durationInFrames={Math.round(Math.min(p.dur ?? 90, w1 - p.from) / speed)}>
           <Audio src={staticFile(`audio/sfx/${p.src}.mp3`)} volume={p.volume} />
         </Sequence>
       ))}
